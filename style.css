@@ -1,0 +1,3911 @@
+/* ==========================================================================
+   Welcome Baby Girl Celebration - Stylesheet
+   Theme: Pastel Pink, Lavender, Cream & Gold Luxury Fairytale
+   ========================================================================== */
+
+/* --- CSS Variables & Design Tokens --- */
+:root {
+  --color-bg-base: #fffbf9;
+  --color-bg-gradient: linear-gradient(145deg, #fff5f8 0%, #fbf4ff 35%, #fff9f0 70%, #fff0f5 100%);
+  
+  --color-primary: #f472b6;
+  --color-primary-dark: #db2777;
+  --color-primary-light: #fce7f3;
+  --color-primary-subtle: #fff1f6;
+  
+  --color-lavender: #c084fc;
+  --color-lavender-dark: #9333ea;
+  --color-lavender-light: #f3e8ff;
+  
+  --color-gold: #d4af37;
+  --color-gold-light: #ffd700;
+  --color-gold-gradient: linear-gradient(135deg, #fff3b0 0%, #ffd56b 40%, #d4af37 80%, #b8860b 100%);
+  
+  --color-text-main: #37283f;
+  --color-text-muted: #6e5879;
+  --color-text-soft: #9c82a7;
+  
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-shadow: 0 16px 36px -10px rgba(220, 160, 185, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6);
+  --glass-shadow-hover: 0 24px 48px -10px rgba(210, 140, 170, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.9);
+  
+  --font-serif: 'Playfair Display', 'Hind Siliguri', Georgia, serif;
+  --font-script: 'Alex Brush', cursive;
+  --font-cursive: 'Great Vibes', cursive;
+  --font-body: 'Outfit', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 9999px;
+  
+  --transition-fast: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Base Reset & Box Sizing --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg-base);
+  background-image: var(--color-bg-gradient);
+  background-attachment: fixed;
+  color: var(--color-text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fdf2f7;
+}
+::-webkit-scrollbar-thumb {
+  background: #f9a8d4;
+  border-radius: var(--radius-pill);
+  border: 2px solid #fdf2f7;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f472b6;
+}
+
+/* --- Ambient & Confetti Canvases --- */
+.ambient-canvas,
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.confetti-canvas {
+  z-index: 999;
+}
+
+/* --- Preloader --- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff0f7 0%, #f6eafb 50%, #fef3e9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  animation: gentlePulse 2s infinite ease-in-out;
+}
+
+.tiara-loader {
+  width: 110px;
+  height: 90px;
+  margin: 0 auto 20px;
+  animation: floatSmall 3s ease-in-out infinite;
+}
+
+.preloader-tiara {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 15px rgba(244, 114, 182, 0.4));
+}
+
+.preloader-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-text-main);
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.preloader-sparkles span {
+  display: inline-block;
+  margin: 0 6px;
+  font-size: 1.2rem;
+  animation: bounceSparkle 1.4s ease-in-out infinite alternate;
+}
+.preloader-sparkles span:nth-child(2) { animation-delay: 0.2s; }
+.preloader-sparkles span:nth-child(3) { animation-delay: 0.4s; }
+.preloader-sparkles span:nth-child(4) { animation-delay: 0.6s; }
+
+/* --- Layout Container & Typography Helpers --- */
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 24px);
+  position: relative;
+  z-index: 2;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section {
+  padding: 95px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header {
+  margin-bottom: 45px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  background: rgba(254, 226, 237, 0.7);
+  padding: 6px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+  border: 1px solid rgba(244, 114, 182, 0.35);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  margin-top: 10px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.title-divider .line {
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.4), transparent);
+}
+
+.title-divider .divider-icon {
+  font-size: 1.35rem;
+  animation: gentlePulse 2.5s infinite ease-in-out;
+}
+
+/* --- Glassmorphism Card System --- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-card:hover {
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* --- Buttons System --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f472b6 0%, #e879f9 50%, #c084fc 100%);
+  color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 30px -5px rgba(244, 114, 182, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.btn-glow {
+  animation: glowPulse 3s infinite alternate;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-main);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  box-shadow: 0 8px 20px -6px rgba(200, 160, 190, 0.25);
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+  color: var(--color-primary-dark);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 0.85rem;
+}
+
+.btn-celebrate {
+  background: #ffffff;
+  color: var(--color-text-main);
+  border: 1.5px solid rgba(244, 114, 182, 0.35);
+  box-shadow: 0 8px 20px -5px rgba(244, 114, 182, 0.2);
+  padding: 14px 26px;
+  font-size: 0.95rem;
+}
+
+.btn-celebrate:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, #fff 0%, #fff0f7 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -5px rgba(244, 114, 182, 0.35);
+}
+
+/* ==========================================================================
+   Site Header & Navigation
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 16px 0;
+  transition: all var(--transition-normal);
+}
+
+.site-header.scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 220, 235, 0.7);
+  box-shadow: 0 8px 24px -10px rgba(220, 150, 180, 0.2);
+}
+
+.nav-container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  transition: color var(--transition-fast);
+}
+
+.brand-logo:hover {
+  color: var(--color-primary-dark);
+}
+
+.brand-icon {
+  font-size: 1.35rem;
+  animation: floatSmall 2.5s infinite ease-in-out;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 28px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  position: relative;
+  transition: color var(--transition-fast);
+  padding: 6px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition: width var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-primary-dark);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Background Music Toggle Button */
+.music-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(244, 114, 182, 0.35);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(244, 114, 182, 0.15);
+  transition: all var(--transition-fast);
+}
+
+.music-toggle-btn:hover {
+  background: #ffffff;
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+  box-shadow: 0 6px 16px rgba(244, 114, 182, 0.25);
+}
+
+.music-toggle-btn.playing {
+  background: linear-gradient(135deg, #fff0f7 0%, #fdf4ff 100%);
+  border-color: var(--color-primary);
+}
+
+.equalizer-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+  margin-left: 2px;
+}
+
+.eq-bar {
+  width: 3px;
+  height: 4px;
+  background: var(--color-primary);
+  border-radius: 1px;
+  transition: height var(--transition-fast);
+}
+
+.music-toggle-btn.playing .eq-bar:nth-child(1) {
+  animation: eqJump 0.8s infinite ease-in-out alternate;
+}
+.music-toggle-btn.playing .eq-bar:nth-child(2) {
+  animation: eqJump 0.6s 0.2s infinite ease-in-out alternate;
+}
+.music-toggle-btn.playing .eq-bar:nth-child(3) {
+  animation: eqJump 0.7s 0.4s infinite ease-in-out alternate;
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.mobile-menu-toggle .bar {
+  width: 24px;
+  height: 2.5px;
+  background-color: var(--color-text-main);
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+/* ==========================================================================
+   Section 1: Magical Welcome Screen (Hero)
+   ========================================================================== */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 130px;
+  padding-bottom: 70px;
+  text-align: center;
+  position: relative;
+  scroll-margin-top: 80px;
+}
+
+.floating-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating-item {
+  position: absolute;
+  opacity: 0.65;
+  filter: drop-shadow(0 4px 8px rgba(244, 114, 182, 0.3));
+  user-select: none;
+}
+
+.item-1 { top: 18%; left: 8%; font-size: 1.8rem; animation: floatDrift 7s infinite ease-in-out; }
+.item-2 { top: 25%; right: 10%; font-size: 2rem; animation: floatDrift 8s 1s infinite ease-in-out reverse; }
+.item-3 { top: 60%; left: 6%; font-size: 2.2rem; animation: floatDrift 6.5s 0.5s infinite ease-in-out; }
+.item-4 { top: 75%; right: 8%; font-size: 1.9rem; animation: floatDrift 9s 2s infinite ease-in-out; }
+.item-5 { top: 38%; left: 16%; font-size: 2rem; animation: floatDrift 8.5s 1.5s infinite ease-in-out; }
+.item-6 { top: 45%; right: 18%; font-size: 1.7rem; animation: floatDrift 7.5s 0.8s infinite ease-in-out reverse; }
+.item-7 { top: 82%; left: 22%; font-size: 2rem; animation: floatDrift 9.5s 3s infinite ease-in-out; }
+.item-8 { top: 12%; right: 26%; font-size: 1.9rem; animation: floatDrift 10s 2.5s infinite ease-in-out; }
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 860px;
+}
+
+.hero-crown-wrapper {
+  width: 140px;
+  height: 100px;
+  margin-bottom: 16px;
+  animation: crownHover 3.5s infinite ease-in-out;
+}
+
+.hero-crown-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 12px 20px rgba(212, 175, 55, 0.45));
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a21caf;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  padding: 8px 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.15);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  margin-bottom: 16px;
+}
+
+.title-sub {
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--color-primary-dark);
+  margin-bottom: -10px;
+}
+
+.title-main {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  background: linear-gradient(135deg, #b02e6e 0%, #db2777 40%, #9333ea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 16px rgba(219, 39, 119, 0.18));
+}
+
+.hero-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+/* Hero Arrival Announcement Badge (Birth Date & Time) */
+.hero-arrival-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  box-shadow: 0 8px 24px -6px rgba(219, 39, 119, 0.2), 0 0 16px rgba(253, 224, 71, 0.25);
+  margin-bottom: 30px;
+  animation: gentlePulse 3.5s infinite ease-in-out;
+}
+
+.arrival-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.96rem;
+  color: #701a75;
+}
+
+.arrival-icon {
+  font-size: 1.1rem;
+}
+
+.arrival-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a21caf;
+}
+
+.arrival-value {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: #86198f;
+  letter-spacing: 0.5px;
+}
+
+.arrival-divider {
+  color: #f59e0b;
+  font-size: 0.85rem;
+}
+
+/* Quote Card in Hero */
+.quote-card {
+  padding: 34px 44px;
+  max-width: 720px;
+  margin: 0 auto 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  position: relative;
+}
+
+.quote-ornament {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  opacity: 0.8;
+}
+.top-ornament { margin-bottom: 14px; }
+.bottom-ornament { margin-top: 14px; }
+
+.quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  line-height: 1.65;
+  color: #43284f;
+  font-weight: 500;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 45px;
+}
+
+.scroll-indicator {
+  margin-top: 10px;
+}
+
+.scroll-indicator a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  transition: color var(--transition-fast);
+}
+
+.scroll-indicator a:hover {
+  color: var(--color-primary-dark);
+}
+
+.scroll-mouse {
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(244, 114, 182, 0.6);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-wheel {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  animation: mouseScroll 1.8s infinite;
+}
+
+/* ==========================================================================
+   Section 2: A Beautiful New Beginning
+   ========================================================================== */
+.beginning-section {
+  background: radial-gradient(ellipse at center bottom, rgba(254, 240, 248, 0.6) 0%, transparent 70%);
+}
+
+.beginning-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.beginning-card {
+  padding: 46px 42px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-ribbon {
+  position: absolute;
+  top: 24px;
+  right: -34px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #f472b6, #db2777);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 6px 40px;
+  box-shadow: 0 4px 10px rgba(219, 39, 119, 0.3);
+}
+
+.quote-mark {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 4.5rem;
+  line-height: 1;
+  color: rgba(244, 114, 182, 0.4);
+  margin-bottom: -15px;
+}
+
+.beginning-message {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+  font-weight: 600;
+  color: #3f2249;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.message-subtext {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.milestone-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #632d66;
+  box-shadow: 0 4px 12px rgba(220, 160, 190, 0.15);
+  transition: transform var(--transition-fast);
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+}
+
+.pill.milestone-highlight {
+  background: linear-gradient(135deg, rgba(255, 240, 248, 0.95) 0%, rgba(250, 232, 255, 0.95) 100%);
+  border-color: rgba(236, 72, 153, 0.5);
+  color: #86198f;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.22);
+}
+
+/* Illustration Wrapper & Parents Caricature */
+.beginning-illustration-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration-halo {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255, 214, 230, 0.75) 0%, rgba(243, 232, 255, 0.55) 50%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(28px);
+  z-index: 0;
+  animation: haloBreathe 5s infinite ease-in-out;
+}
+
+/* Caricature Portrait Frame in Section 2: A Beautiful New Beginning */
+.parents-caricature-frame {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  padding: 16px 16px 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 2px solid rgba(255, 222, 240, 0.98);
+  border-radius: 36px;
+  box-shadow: 0 24px 55px -10px rgba(219, 39, 119, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  animation: gentleFloat 6s infinite ease-in-out;
+  z-index: 2;
+  cursor: pointer;
+  user-select: none;
+}
+
+.parents-caricature-frame:hover,
+.parents-caricature-frame:focus-visible {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 65px -8px rgba(219, 39, 119, 0.38), 0 0 0 3px rgba(244, 114, 182, 0.4);
+  outline: none;
+}
+
+.caricature-img-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(219, 39, 119, 0.18);
+  background: linear-gradient(135deg, #fff0f7 0%, #f3e8ff 100%);
+  cursor: zoom-in;
+}
+
+.parents-caricature-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.parents-caricature-frame:hover .parents-caricature-img {
+  transform: scale(1.05);
+}
+
+/* Hover overlay hinting "Click for bigger picture" */
+.caricature-zoom-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(30, 8, 22, 0.65) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: 26px;
+}
+
+.parents-caricature-frame:hover .caricature-zoom-overlay,
+.parents-caricature-frame:focus-visible .caricature-zoom-overlay {
+  opacity: 1;
+}
+
+.zoom-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(244, 114, 182, 0.5);
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  transform: translateY(8px);
+  transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.parents-caricature-frame:hover .zoom-badge,
+.parents-caricature-frame:focus-visible .zoom-badge {
+  transform: translateY(0);
+}
+
+.caricature-caption-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  background: linear-gradient(135deg, rgba(255, 240, 248, 0.95) 0%, rgba(246, 235, 255, 0.95) 100%);
+  border: 1px solid rgba(244, 114, 182, 0.45);
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.2);
+}
+
+.caricature-birth-stamp {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #a21caf;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.caricature-birth-stamp strong {
+  color: #701a75;
+}
+
+.caricature-floating-elements {
+  position: absolute;
+  inset: -15px;
+  pointer-events: none;
+}
+
+.caricature-sparkle {
+  position: absolute;
+  font-size: 1.4rem;
+  animation: floatSmall 3s infinite ease-in-out;
+}
+
+.caricature-sparkle.cs-1 { top: -8px; left: 10px; animation-delay: 0s; }
+.caricature-sparkle.cs-2 { top: 20px; right: -12px; animation-delay: 0.8s; font-size: 1.5rem; }
+.caricature-sparkle.cs-3 { bottom: 30px; left: -14px; animation-delay: 1.6s; font-size: 1.3rem; }
+.caricature-sparkle.cs-4 { bottom: -10px; right: 20px; animation-delay: 2.2s; font-size: 1.5rem; }
+
+.baby-illustration-svg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  filter: drop-shadow(0 18px 30px rgba(215, 160, 190, 0.35));
+  animation: gentleFloat 6s infinite ease-in-out;
+}
+
+.butterfly-anim {
+  animation: butterflyDrift 4.5s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Section 3: For Parents & Daddy's Girl (Unified Fairytale Diptych)
+   ========================================================================== */
+.parents-section {
+  background: radial-gradient(circle at 15% 20%, rgba(255, 230, 245, 0.7) 0%, transparent 45%),
+              radial-gradient(circle at 85% 75%, rgba(243, 230, 255, 0.65) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 248, 240, 0.5) 0%, transparent 65%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 245, 250, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+/* Ambient Fairytale Glowing Orbs in Background */
+.parents-ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(65px);
+  z-index: 0;
+}
+
+.parents-ambient-glow.glow-1 {
+  width: 450px;
+  height: 450px;
+  top: 10%;
+  left: -80px;
+  background: radial-gradient(circle, rgba(254, 205, 232, 0.45) 0%, rgba(255, 235, 245, 0.2) 60%, transparent 80%);
+  animation: haloBreathe 8s infinite ease-in-out alternate;
+}
+
+.parents-ambient-glow.glow-2 {
+  width: 500px;
+  height: 500px;
+  bottom: 8%;
+  right: -100px;
+  background: radial-gradient(circle, rgba(233, 213, 255, 0.45) 0%, rgba(250, 232, 255, 0.2) 60%, transparent 80%);
+  animation: haloBreathe 9s infinite ease-in-out alternate-reverse;
+}
+
+.section-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Masterpiece Symmetrical Fairytale Diptych Grid */
+.parents-family-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px;
+  align-items: stretch;
+  max-width: 1220px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Symmetrical Family Sanctuary Card */
+.family-sanctuary-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 44px 38px 40px;
+  border-radius: 32px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Left Card: Warm Rose & Champagne Silk */
+.parents-letter-card {
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 246, 251, 0.93) 45%, rgba(254, 240, 248, 0.97) 100%);
+  border: 1.5px solid rgba(244, 114, 182, 0.35);
+  box-shadow: 0 24px 55px -12px rgba(220, 140, 185, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+}
+
+.parents-letter-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(244, 114, 182, 0.65);
+  box-shadow: 0 32px 65px -12px rgba(220, 140, 185, 0.38), 0 0 0 1.5px rgba(255, 255, 255, 0.95) inset;
+}
+
+/* Right Card: Royal Lavender & Golden Rose Mist */
+.father-content-card {
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 243, 255, 0.93) 45%, rgba(253, 242, 252, 0.97) 100%);
+  border: 1.5px solid rgba(192, 132, 252, 0.35);
+  box-shadow: 0 24px 55px -12px rgba(192, 132, 252, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+}
+
+.father-content-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(192, 132, 252, 0.65);
+  box-shadow: 0 32px 65px -12px rgba(192, 132, 252, 0.38), 0 0 0 1.5px rgba(255, 255, 255, 0.95) inset;
+}
+
+/* Ornate Corner Filigrees (Delicate SVG Vines) */
+.card-filigree {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  color: rgba(244, 114, 182, 0.38);
+  transition: transform 0.4s ease, color 0.4s ease;
+  z-index: 1;
+}
+
+.card-filigree svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.card-filigree.corner-tl { top: 14px; left: 14px; }
+.card-filigree.corner-tr { top: 14px; right: 14px; }
+.card-filigree.corner-bl { bottom: 14px; left: 14px; }
+.card-filigree.corner-br { bottom: 14px; right: 14px; }
+
+.card-filigree.filigree-purple {
+  color: rgba(192, 132, 252, 0.38);
+}
+
+.family-sanctuary-card:hover .card-filigree {
+  color: rgba(212, 175, 55, 0.7);
+  transform: scale(1.08);
+}
+
+/* Regal Crown Header Medallions */
+.card-regal-badge-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.card-regal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.22);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card-regal-badge.badge-parents {
+  background: linear-gradient(135deg, #fff2f8 0%, #ffe5f1 100%);
+  border: 1.5px solid rgba(244, 114, 182, 0.5);
+  color: #9d174d;
+}
+
+.card-regal-badge.badge-father {
+  background: linear-gradient(135deg, #f8f2ff 0%, #efe4ff 100%);
+  border: 1.5px solid rgba(192, 132, 252, 0.5);
+  color: #6b21a8;
+}
+
+.card-regal-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+}
+
+.badge-sparkle {
+  font-size: 0.95rem;
+  animation: gentlePulse 2.5s infinite ease-in-out;
+}
+
+/* Card Header Group (Eyebrow & Title) */
+.card-header-group {
+  text-align: center;
+  margin-bottom: 24px;
+  min-height: 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #be185d;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+.card-eyebrow.eyebrow-purple {
+  color: #7e22ce;
+}
+
+.card-maintitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  color: #3b1442;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+/* Illuminated Frosted Letter Envelope */
+.family-quote-envelope {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 245, 250, 0.82) 100%);
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(220, 160, 190, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.family-quote-envelope.quote-envelope-parents {
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  border-left: 4px solid var(--color-primary);
+}
+
+.family-quote-envelope.quote-envelope-father {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 242, 255, 0.82) 100%);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-left: 4px solid var(--color-lavender);
+}
+
+.family-quote-envelope:hover {
+  transform: translateY(-2px);
+}
+
+.gilded-quote-mark {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+
+.gilded-quote-mark.quote-start {
+  top: 8px;
+  left: 12px;
+}
+
+.gilded-quote-mark.quote-end {
+  bottom: -4px;
+  right: 14px;
+}
+
+.family-envelope-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+  line-height: 1.7;
+  color: #3b1e42;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Symmetrical 3-Feature List */
+.family-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.family-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 230, 242, 0.8);
+  min-height: 80px;
+  box-shadow: 0 4px 14px rgba(220, 160, 185, 0.08);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.family-feature-item:hover {
+  transform: translateX(6px);
+  background: #ffffff;
+  border-color: rgba(244, 114, 182, 0.45);
+  box-shadow: 0 8px 20px rgba(220, 160, 185, 0.18);
+}
+
+.father-content-card .family-feature-item:hover {
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 8px 20px rgba(192, 132, 252, 0.18);
+}
+
+.feature-jewel-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: transform var(--transition-fast);
+}
+
+.family-feature-item:hover .feature-jewel-icon {
+  transform: scale(1.1) rotate(4deg);
+}
+
+.feature-jewel-icon.jewel-pink {
+  background: linear-gradient(135deg, #fff0f7 0%, #fed7e9 100%);
+  color: #db2777;
+}
+
+.feature-jewel-icon.jewel-rose {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 100%);
+  color: #e11d48;
+}
+
+.feature-jewel-icon.jewel-gold {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  color: #d97706;
+}
+
+.feature-jewel-icon.jewel-shield {
+  background: linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%);
+  color: #7e22ce;
+}
+
+.feature-jewel-icon.jewel-dance {
+  background: linear-gradient(135deg, #fdf4ff 0%, #f5d0fe 100%);
+  color: #a21caf;
+}
+
+.feature-jewel-icon.jewel-harbor {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  color: #c2410c;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #3b1842;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.feature-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Symmetrical Footers */
+.family-card-footer {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1.5px dashed rgba(244, 114, 182, 0.45);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.footer-father {
+  border-top: 1.5px dashed rgba(192, 132, 252, 0.5);
+}
+
+.family-script-quote {
+  font-family: var(--font-script);
+  font-size: 1.65rem;
+  line-height: 1.25;
+  color: #9d174d;
+  margin-bottom: 16px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.family-script-quote.script-quote-father {
+  color: #6b21a8;
+  font-size: 1.6rem;
+}
+
+.father-action-wrapper,
+.parents-action-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.father-celebrate-btn,
+.parents-celebrate-btn {
+  width: 100%;
+  max-width: 320px;
+  height: 48px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.parents-celebrate-btn {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #f472b6 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px -4px rgba(244, 63, 94, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+}
+
+.parents-celebrate-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px -4px rgba(244, 63, 94, 0.6), 0 0 15px rgba(236, 72, 153, 0.5);
+}
+
+.father-celebrate-btn {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f43f5e 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px -4px rgba(168, 85, 247, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+}
+
+.father-celebrate-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px -4px rgba(168, 85, 247, 0.6), 0 0 15px rgba(236, 72, 153, 0.5);
+}
+
+.father-celebrate-hint,
+.parents-celebrate-hint {
+  font-size: 0.82rem;
+  color: var(--color-text-soft);
+  font-style: italic;
+  margin: 0;
+  height: 18px;
+  line-height: 18px;
+}
+
+/* ==========================================================================
+   Ambient Celebration Balloons (Floating Throughout the Website)
+   ========================================================================== */
+.ambient-balloons-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 85;
+  overflow: hidden;
+}
+
+/* Outer wrapper carries ONLY the vertical ascension animation (prevents hover transform override glitches) */
+.ambient-balloon-wrapper {
+  position: absolute;
+  bottom: -130px;
+  pointer-events: none;
+  animation: ambientBalloonAscend 7.5s linear forwards;
+  will-change: transform;
+}
+
+@keyframes ambientBalloonAscend {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-3deg);
+    opacity: 0;
+  }
+  3% {
+    opacity: 0.98;
+  }
+  25% {
+    transform: translateY(calc(-25vh - 50px)) translateX(14px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(calc(-50vh - 100px)) translateX(-12px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(calc(-75vh - 150px)) translateX(10px) rotate(4deg);
+  }
+  92% {
+    opacity: 0.98;
+  }
+  100% {
+    transform: translateY(calc(-100vh - 200px)) translateX(0) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+/* Inner balloon handles ONLY hover scaling, bobbing, and pop animation */
+.ambient-balloon-inner {
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  transform: scale(var(--balloon-scale, 1));
+  transition: transform 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.28), filter 0.22s ease;
+  filter: drop-shadow(0 10px 18px rgba(220, 150, 180, 0.35));
+}
+
+.ambient-balloon-inner:hover {
+  transform: scale(calc(var(--balloon-scale, 1) * 1.18));
+  filter: drop-shadow(0 14px 26px rgba(220, 150, 180, 0.6)) brightness(1.08);
+}
+
+.ambient-balloon-inner.balloon-popping {
+  transform: scale(calc(var(--balloon-scale, 1) * 1.5)) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: transform 0.24s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.24s ease-out !important;
+}
+
+.balloon {
+  width: 65px;
+  height: 80px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  position: relative;
+  cursor: pointer;
+  filter: drop-shadow(0 10px 18px rgba(220, 150, 180, 0.35));
+  transition: transform var(--transition-fast);
+}
+
+.balloon-pink {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #ff80a0 45%, #e11d48 100%);
+}
+
+.balloon-lavender {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #c084fc 45%, #7e22ce 100%);
+}
+
+.balloon-gold {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #fde047 45%, #ca8a04 100%);
+}
+
+.balloon-cream {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #fbcfe8 45%, #f472b6 100%);
+}
+
+.balloon-rose {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #fda4af 45%, #e11d48 100%);
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: inherit;
+  border-radius: 3px;
+}
+
+.balloon-string {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  width: 1.5px;
+  height: 40px;
+  background: rgba(180, 140, 160, 0.6);
+  transform-origin: top;
+  animation: stringWave 3s infinite ease-in-out alternate;
+}
+
+.balloon-sparkle {
+  position: absolute;
+  top: 15px;
+  right: 12px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  animation: gentlePulse 2s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Section 6: 8 Blessings for Our Little Princess (Interactive Semicircle Experience)
+   ========================================================================== */
+.blessings-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(254, 240, 248, 0.6) 40%, #fff9fc 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.blessings-card {
+  padding: 48px 32px 42px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 720px;
+}
+
+/* Blessings Interactive Stage */
+.blessings-interactive-stage {
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+}
+
+/* Background Magical Halo Glow */
+.magical-box-halo {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, rgba(255, 190, 225, 0.6) 0%, rgba(225, 195, 255, 0.4) 45%, transparent 72%);
+  border-radius: 50%;
+  filter: blur(36px);
+  z-index: 0;
+  animation: haloBreathe 4.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Floating Tiny Sparkles and Hearts around Gift Box */
+.box-floating-sparkles {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 320px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.box-sparkle {
+  position: absolute;
+  font-size: 1.25rem;
+  opacity: 0.8;
+  animation: floatAroundBox 4.2s infinite ease-in-out;
+}
+
+.box-sparkle.s-1 { top: 10%; left: 8%; animation-delay: 0s; font-size: 1.4rem; }
+.box-sparkle.s-2 { top: 25%; right: 12%; animation-delay: 0.7s; font-size: 1.3rem; }
+.box-sparkle.s-3 { bottom: 35%; left: 4%; animation-delay: 1.4s; font-size: 1.1rem; }
+.box-sparkle.s-4 { top: 60%; right: 6%; animation-delay: 2.1s; font-size: 1.35rem; }
+.box-sparkle.s-5 { top: 5%; right: 30%; animation-delay: 1.1s; font-size: 1.2rem; }
+.box-sparkle.s-6 { bottom: 15%; left: 22%; animation-delay: 2.8s; font-size: 1.15rem; }
+.box-sparkle.s-7 { bottom: 12%; right: 24%; animation-delay: 1.8s; font-size: 1.3rem; }
+.box-sparkle.s-8 { top: 38%; left: 16%; animation-delay: 3.2s; font-size: 1.1rem; }
+
+@keyframes floatAroundBox {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-14px) scale(1.18) rotate(12deg);
+    opacity: 1;
+  }
+}
+
+/* Center Stage Wrapper (Box & Popping Baby) */
+.center-stage-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 190px;
+}
+
+/* Golden Light Rays Aura (Revealed on Box Opening) */
+.golden-rays-aura {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  width: 380px;
+  height: 380px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 6;
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.golden-rays-aura .ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 190px;
+  background: linear-gradient(180deg, #ffd700 0%, rgba(255, 215, 0, 0.5) 50%, transparent 100%);
+  transform-origin: top center;
+  border-radius: 4px;
+  filter: drop-shadow(0 0 8px #ffd700);
+}
+
+.golden-rays-aura .r-1 { transform: rotate(0deg); }
+.golden-rays-aura .r-2 { transform: rotate(45deg); }
+.golden-rays-aura .r-3 { transform: rotate(90deg); }
+.golden-rays-aura .r-4 { transform: rotate(135deg); }
+.golden-rays-aura .r-5 { transform: rotate(180deg); }
+.golden-rays-aura .r-6 { transform: rotate(225deg); }
+.golden-rays-aura .r-7 { transform: rotate(270deg); }
+.golden-rays-aura .r-8 { transform: rotate(315deg); }
+
+.box-opened .golden-rays-aura {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: raysRotateGlow 14s infinite linear;
+}
+
+@keyframes raysRotateGlow {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
+
+/* Popped Baby Princess Centerpiece */
+.popped-baby-centerpiece {
+  width: 175px;
+  height: 165px;
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  margin-left: -87.5px;
+  z-index: 8;
+  opacity: 0;
+  transform: translateY(65px) scale(0.25);
+  pointer-events: none;
+  transform-origin: bottom center;
+  transition: opacity 0.6s ease, transform 0.85s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.box-opened .popped-baby-centerpiece {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-80px) scale(1);
+  animation: babyGentleFloat 3.8s 0.85s infinite ease-in-out;
+}
+
+@keyframes babyGentleFloat {
+  0%, 100% {
+    transform: translateY(-80px) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-94px) scale(1.04) rotate(1.5deg);
+  }
+}
+
+.baby-face-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 12px 24px rgba(219, 39, 119, 0.32));
+}
+
+.baby-princess-tiara {
+  animation: floatSmall 2.8s infinite ease-in-out;
+}
+
+/* MAGICAL 3D GIFT BOX (Closed Initially, Opens on Click) */
+.magical-gift-box-3d {
+  position: relative;
+  width: 230px;
+  height: 165px;
+  cursor: pointer;
+  z-index: 9;
+  user-select: none;
+  perspective: 1000px;
+  animation: giftBoxIdleFloat 3.8s infinite ease-in-out;
+  transition: transform var(--transition-fast);
+}
+
+.magical-gift-box-3d:hover {
+  transform: scale(1.04);
+}
+
+@keyframes giftBoxIdleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Box Body */
+.box-body-3d {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 48%, #db2777 100%);
+  border-radius: 18px 18px 24px 24px;
+  box-shadow: 0 18px 38px -6px rgba(219, 39, 119, 0.38), 0 0 0 1.5px rgba(255, 255, 255, 0.8) inset;
+  overflow: hidden;
+  position: relative;
+}
+
+.box-body-inner-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: linear-gradient(180deg, rgba(80, 7, 36, 0.35) 0%, transparent 100%);
+  z-index: 2;
+}
+
+.box-body-ribbon-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  background: linear-gradient(90deg, #fff3b0 0%, #ffd700 50%, #d4af37 100%);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  z-index: 1;
+}
+
+.box-body-ribbon-h {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(180deg, #fff3b0 0%, #ffd700 50%, #d4af37 100%);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  z-index: 1;
+}
+
+.box-shimmer-highlight {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  z-index: 3;
+}
+
+.box-seal-icon {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  z-index: 4;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Realistic 3D Box Lid */
+.box-lid-3d {
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 246px;
+  height: 52px;
+  z-index: 10;
+  transform-origin: 20px 20px;
+  transition: transform 0.85s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.5s ease;
+}
+
+.lid-top-face {
+  width: 100%;
+  height: 42px;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 45%, #f472b6 100%);
+  border-radius: 14px 14px 6px 6px;
+  box-shadow: 0 8px 18px rgba(219, 39, 119, 0.28), 0 0 0 1.5px rgba(255, 255, 255, 0.9) inset;
+  position: relative;
+}
+
+.lid-ribbon-horizontal {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, #fff3b0 0%, #ffd700 50%, #d4af37 100%);
+}
+
+.lid-ribbon-vertical {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  background: linear-gradient(90deg, #fff3b0 0%, #ffd700 50%, #d4af37 100%);
+}
+
+.lid-lip-edge {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(180deg, #f472b6 0%, #db2777 100%);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Fluffy Golden/Pink Ribbon Bow */
+.lid-bow-knot {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 45px;
+  z-index: 12;
+}
+
+.bow-loop {
+  position: absolute;
+  top: 2px;
+  width: 36px;
+  height: 32px;
+  border-radius: 50% 50% 20% 50%;
+  background: linear-gradient(135deg, #ffd700 0%, #f43f5e 100%);
+  border: 1.5px solid #fff;
+  box-shadow: 0 4px 10px rgba(244, 63, 94, 0.35);
+}
+
+.bow-loop-left {
+  left: 4px;
+  transform: rotate(-25deg);
+}
+
+.bow-loop-right {
+  right: 4px;
+  transform: scaleX(-1) rotate(-25deg);
+}
+
+.bow-center-pearl {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffd700 60%, #b8860b 100%);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  z-index: 14;
+}
+
+.bow-tail {
+  position: absolute;
+  top: 22px;
+  width: 14px;
+  height: 28px;
+  background: linear-gradient(180deg, #f43f5e 0%, #fda4af 100%);
+  border-radius: 4px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+}
+
+.bow-tail-left {
+  left: 20px;
+  transform: rotate(24deg);
+}
+
+.bow-tail-right {
+  right: 20px;
+  transform: rotate(-24deg);
+}
+
+/* BOX OPENED STATE: Lid swings open & tilts back! */
+.box-opened .magical-gift-box-3d .box-lid-3d {
+  transform: translateY(-90px) rotate(-34deg) scale(0.92);
+  opacity: 0.9;
+}
+
+/* Animated Instruction Pill */
+.box-open-instruction {
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.5px dashed rgba(244, 114, 182, 0.8);
+  padding: 10px 26px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  box-shadow: 0 6px 20px rgba(244, 114, 182, 0.25);
+  animation: instructionBounce 2.5s infinite ease-in-out;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+}
+
+.box-open-instruction:hover {
+  background: #ffffff;
+  border-color: var(--color-primary-dark);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(219, 39, 119, 0.35);
+}
+
+.box-opened .box-open-instruction {
+  opacity: 0.95;
+  pointer-events: auto;
+  transform: translateY(0);
+  background: rgba(255, 245, 250, 0.96);
+  border-color: rgba(219, 39, 119, 0.6);
+  box-shadow: 0 6px 18px rgba(219, 39, 119, 0.2);
+}
+
+.box-opened .box-open-instruction:hover {
+  background: #ffffff;
+  border-color: var(--color-primary-dark);
+  transform: translateY(-3px) scale(1.03);
+}
+
+@keyframes instructionBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* ==========================================================================
+   SEMI-CIRCLE BLESSING CARDS LAYOUT
+   Eight Cards Arranged in a Semicircular Upper Arc Around the Baby
+   ========================================================================== */
+.semicircle-cards-container {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.box-opened .semicircle-cards-container {
+  pointer-events: auto;
+}
+
+.blessing-arc-card {
+  position: absolute;
+  width: 122px;
+  height: 136px;
+  transform: translate(-50%, -50%) scale(0.15);
+  opacity: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow 0.3s ease;
+  transform-origin: center center;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid rgba(255, 218, 238, 0.95);
+  border-radius: 20px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 24px -4px rgba(219, 39, 119, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.85);
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card-glow-aura {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.35) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-icon {
+  font-size: 1.65rem;
+  line-height: 1;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 4px rgba(244, 114, 182, 0.35));
+}
+
+.card-number-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #b8860b;
+  background: rgba(255, 248, 220, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 4px;
+}
+
+.card-theme {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #3b1544;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.card-preview {
+  font-size: 0.66rem;
+  color: #6b4c6e;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.card-tap-hint {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+/* Staggered Semicircle Bloom Animation when Box Opens */
+.box-opened .blessing-arc-card {
+  animation: arcCardBloom 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+  animation-delay: calc(0.1s + var(--card-i) * 0.08s);
+}
+
+/* Desktop Semicircular Target Coordinates for 8 Cards (Symmetrical Arc with Cards 3 & 4 at the Apex) */
+.box-opened .blessing-arc-card[data-index="0"] {
+  --target-x: -288px;
+  --target-y: -140px;
+  --target-rot: -32deg;
+}
+
+.box-opened .blessing-arc-card[data-index="1"] {
+  --target-x: -218px;
+  --target-y: -218px;
+  --target-rot: -23deg;
+}
+
+.box-opened .blessing-arc-card[data-index="2"] {
+  --target-x: -136px;
+  --target-y: -272px;
+  --target-rot: -14deg;
+}
+
+.box-opened .blessing-arc-card[data-index="3"] {
+  --target-x: -48px;
+  --target-y: -296px;
+  --target-rot: -5deg;
+}
+
+.box-opened .blessing-arc-card[data-index="4"] {
+  --target-x: 48px;
+  --target-y: -296px;
+  --target-rot: 5deg;
+}
+
+.box-opened .blessing-arc-card[data-index="5"] {
+  --target-x: 136px;
+  --target-y: -272px;
+  --target-rot: 14deg;
+}
+
+.box-opened .blessing-arc-card[data-index="6"] {
+  --target-x: 218px;
+  --target-y: -218px;
+  --target-rot: 23deg;
+}
+
+.box-opened .blessing-arc-card[data-index="7"] {
+  --target-x: 288px;
+  --target-y: -140px;
+  --target-rot: 32deg;
+}
+
+@keyframes arcCardBloom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.15) rotate(0deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--target-x), var(--target-y)) scale(1.08) rotate(var(--target-rot));
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--target-x), var(--target-y)) scale(1) rotate(var(--target-rot));
+  }
+}
+
+/* Card Hover & Focus Effect */
+.box-opened .blessing-arc-card:hover,
+.box-opened .blessing-arc-card:focus-visible {
+  transform: translate(-50%, -50%) translate(var(--target-x), var(--target-y)) scale(1.14) rotate(0deg) !important;
+  z-index: 30;
+  outline: none;
+}
+
+.box-opened .blessing-arc-card:hover .card-inner,
+.box-opened .blessing-arc-card:focus-visible .card-inner {
+  background: #ffffff;
+  border-color: #ffd700;
+  box-shadow: 0 14px 32px rgba(219, 39, 119, 0.35), 0 0 16px rgba(255, 215, 0, 0.45);
+}
+
+.box-opened .blessing-arc-card:hover .card-glow-aura,
+.box-opened .blessing-arc-card:focus-visible .card-glow-aura {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   FINAL CELEBRATION & REPLAY BUTTON
+   ========================================================================== */
+.blessings-final-celebration {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease, max-height 0.6s ease, margin-top 0.6s ease;
+  margin-top: 0;
+  position: relative;
+  z-index: 12;
+}
+
+.box-opened .blessings-final-celebration {
+  opacity: 1;
+  max-height: 400px;
+  pointer-events: auto;
+  margin-top: 36px;
+  animation: fadeInSlow 0.9s 0.9s forwards;
+}
+
+.celebration-floating-hearts {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  opacity: 0.85;
+  animation: floatSmall 2.8s infinite ease-in-out;
+}
+
+.final-celebration-message-box {
+  background: linear-gradient(135deg, rgba(255, 237, 245, 0.92) 0%, rgba(246, 235, 255, 0.88) 100%);
+  border-radius: var(--radius-md);
+  padding: 26px 34px;
+  border: 1.5px solid rgba(244, 114, 182, 0.35);
+  box-shadow: 0 12px 28px rgba(219, 39, 119, 0.14);
+  max-width: 780px;
+  margin: 0 auto 24px;
+}
+
+.final-celebration-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  font-weight: 600;
+  color: #381242;
+  line-height: 1.6;
+}
+
+.blessings-replay-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-replay-blessings {
+  padding: 14px 34px;
+  font-size: 1.05rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 24px rgba(219, 39, 119, 0.32);
+}
+
+/* ==========================================================================
+   POPUP MODAL FOR COMPLETE BLESSING DISPLAY
+   ========================================================================== */
+.blessing-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(45, 12, 38, 0.52);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.blessing-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.blessing-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  transform: scale(0.85) translateY(20px);
+  transition: transform 0.38s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.blessing-modal-backdrop.open .blessing-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid rgba(244, 114, 182, 0.5);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+  transform: scale(1.1) rotate(90deg);
+}
+
+.modal-card-content {
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid rgba(255, 222, 240, 0.98);
+  border-radius: 32px;
+  padding: 38px 36px 30px;
+  box-shadow: 0 25px 60px -10px rgba(219, 39, 119, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.modal-card-header {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-blessing-icon {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px rgba(244, 114, 182, 0.4));
+  animation: floatSmall 2.6s infinite ease-in-out;
+}
+
+.modal-blessing-badge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #b8860b;
+  background: rgba(255, 248, 220, 0.95);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.modal-blessing-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: #3b1544;
+  font-weight: 700;
+}
+
+.modal-card-body {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.modal-quote-symbol {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  line-height: 0.8;
+  color: rgba(244, 114, 182, 0.32);
+  display: block;
+  margin-bottom: -12px;
+}
+
+.modal-blessing-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+  color: #38153e;
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+.modal-card-footer {
+  border-top: 1px solid rgba(244, 114, 182, 0.22);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.modal-dedication {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.modal-action-close {
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   IMAGE LIGHTBOX MODAL (Bigger Picture View)
+   ========================================================================== */
+.image-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 8, 22, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.image-lightbox-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.image-lightbox-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.88) translateY(24px);
+  transition: transform 0.38s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.image-lightbox-backdrop.open .image-lightbox-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(244, 114, 182, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all var(--transition-fast);
+}
+
+.lightbox-close-btn:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+  transform: scale(1.12) rotate(90deg);
+}
+
+.lightbox-modal-card {
+  background: rgba(255, 255, 255, 0.98);
+  border: 2.5px solid rgba(255, 222, 240, 0.98);
+  border-radius: 36px;
+  box-shadow: 0 30px 80px -10px rgba(219, 39, 119, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-image-container {
+  position: relative;
+  width: 100%;
+  max-height: 64vh;
+  background: radial-gradient(circle at center, #fff0f7 0%, #fce7f3 45%, #f3e8ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.lightbox-full-img {
+  max-width: 100%;
+  max-height: 58vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(219, 39, 119, 0.25);
+  transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  cursor: default;
+}
+
+.lightbox-full-img:hover {
+  transform: scale(1.02);
+}
+
+.lightbox-image-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.15), transparent 70%);
+}
+
+.lightbox-details-panel {
+  padding: 20px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff 0%, #fff7fb 100%);
+  border-top: 1px solid rgba(244, 114, 182, 0.2);
+}
+
+.lightbox-header-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.lightbox-crown-icon,
+.lightbox-sparkle-icon {
+  font-size: 1.35rem;
+}
+
+.lightbox-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+  color: #38153e;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lightbox-description {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  line-height: 1.5;
+  margin: 4px 0 16px;
+}
+
+.lightbox-btn-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lightbox-btn-row .btn-sm {
+  padding: 9px 22px;
+  font-size: 0.88rem;
+  border-radius: var(--radius-pill);
+}
+
+@media (max-width: 580px) {
+  .lightbox-close-btn {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  .lightbox-modal-card {
+    border-radius: 26px;
+  }
+  .lightbox-image-container {
+    padding: 10px;
+    max-height: 52vh;
+  }
+  .lightbox-full-img {
+    max-height: 48vh;
+    border-radius: 16px;
+  }
+  .lightbox-details-panel {
+    padding: 16px 18px 20px;
+  }
+  .lightbox-btn-row {
+    width: 100%;
+    flex-direction: column;
+  }
+  .lightbox-btn-row .btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Crawling Baby Princess (Lower Side Animation: Left-to-Right & Right-to-Left)
+   ========================================================================== */
+.crawling-baby-track {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 92;
+  overflow: hidden;
+}
+
+.crawling-baby-walker {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 110px;
+  height: 90px;
+  pointer-events: auto;
+  will-change: transform;
+  animation: babyCrawlAcross 24s ease-in-out infinite;
+}
+
+@keyframes babyCrawlAcross {
+  0% {
+    transform: translateX(10px) scaleX(1);
+  }
+  45% {
+    transform: translateX(calc(100vw - 132px)) scaleX(1);
+  }
+  47% {
+    transform: translateX(calc(100vw - 132px)) scaleX(1) translateY(-6px);
+  }
+  49% {
+    transform: translateX(calc(100vw - 132px)) scaleX(-1);
+  }
+  51% {
+    transform: translateX(calc(100vw - 132px)) scaleX(-1);
+  }
+  95% {
+    transform: translateX(10px) scaleX(-1);
+  }
+  97% {
+    transform: translateX(10px) scaleX(-1) translateY(-6px);
+  }
+  99% {
+    transform: translateX(10px) scaleX(1);
+  }
+  100% {
+    transform: translateX(10px) scaleX(1);
+  }
+}
+
+.crawling-baby-character {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+  animation: babyCrawlGait 0.8s ease-in-out infinite;
+  will-change: transform;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.crawling-baby-character:hover {
+  filter: brightness(1.08);
+}
+
+/* Realistic human baby crawling gait: lunges forward, arches back, plants hands & knees */
+@keyframes babyCrawlGait {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1, 1);
+  }
+  20% {
+    /* Push off back knee, surge forward & up */
+    transform: translateY(-11px) translateX(14px) rotate(4.5deg) scale(0.97, 1.03);
+  }
+  40% {
+    /* Forward reach */
+    transform: translateY(-8px) translateX(18px) rotate(2deg) scale(0.98, 1.02);
+  }
+  62% {
+    /* Plant hands & knee on floor, soft landing squash */
+    transform: translateY(2px) translateX(6px) rotate(-3deg) scale(1.04, 0.96);
+  }
+  80% {
+    /* Reset & pause before next crawl push */
+    transform: translateY(0) translateX(0) rotate(-1deg) scale(1.01, 0.99);
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1, 1);
+  }
+}
+
+.crawling-baby-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  background: transparent;
+  filter: drop-shadow(0 5px 10px rgba(180, 80, 120, 0.28));
+}
+
+/* Tiny trailing footsteps / fairy sparkles */
+.crawling-trail {
+  position: absolute;
+  font-size: 0.75rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: trailSparkle 1.4s infinite ease-out;
+}
+
+.trail-1 {
+  bottom: 6px;
+  left: -6px;
+  animation-delay: 0s;
+}
+
+.trail-2 {
+  bottom: 14px;
+  left: -12px;
+  animation-delay: 0.7s;
+}
+
+@keyframes trailSparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(0);
+  }
+  40% {
+    opacity: 0.95;
+    transform: scale(1) translateY(-5px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) translateY(-12px);
+  }
+}
+
+/* Baby Speech Bubble on tap (Placed comfortably on top of the baby's face, never mirrored) */
+.baby-bubble {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -100%) scale(0);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1.5px solid #f472b6;
+  border-radius: 14px;
+  padding: 5px 12px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a21caf;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(219, 39, 119, 0.28);
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.25s ease;
+  opacity: 0;
+  z-index: 999;
+}
+
+.baby-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #f472b6 transparent transparent transparent;
+}
+
+.baby-bubble.visible {
+  transform: translate(-50%, -100%) scale(1);
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .crawling-baby-track {
+    height: 100px;
+  }
+  .crawling-baby-walker {
+    width: 90px;
+    height: 74px;
+    bottom: 2px;
+  }
+  @keyframes babyCrawlAcross {
+    0% {
+      transform: translateX(8px) scaleX(1);
+    }
+    45% {
+      transform: translateX(calc(100vw - 108px)) scaleX(1);
+    }
+    47% {
+      transform: translateX(calc(100vw - 108px)) scaleX(1) translateY(-5px);
+    }
+    49% {
+      transform: translateX(calc(100vw - 108px)) scaleX(-1);
+    }
+    51% {
+      transform: translateX(calc(100vw - 108px)) scaleX(-1);
+    }
+    95% {
+      transform: translateX(8px) scaleX(-1);
+    }
+    97% {
+      transform: translateX(8px) scaleX(-1) translateY(-5px);
+    }
+    99% {
+      transform: translateX(8px) scaleX(1);
+    }
+    100% {
+      transform: translateX(8px) scaleX(1);
+    }
+  }
+}
+
+/* ==========================================================================
+   Site Footer (Ultra-Slim & Minimal Soft Mauve Ribbon)
+   ========================================================================== */
+.site-footer {
+  padding: 14px 0 12px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(250, 245, 255, 0.6) 0%, rgba(243, 232, 255, 0.8) 100%);
+  border-top: 1px solid rgba(192, 132, 252, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: #6b4d77;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.footer-sep {
+  opacity: 0.45;
+  font-size: 0.75rem;
+}
+
+.back-to-top-link {
+  color: #8b5cf6;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color var(--transition-fast);
+}
+
+.back-to-top-link:hover {
+  color: #6d28d9;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Floating Celebration Action Dock (Available Throughout Website)
+   ========================================================================== */
+.floating-fab-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.fab-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  color: #fff;
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 22px -5px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.fab-btn:hover {
+  transform: scale(1.15) rotate(6deg);
+}
+
+.fab-btn:active {
+  transform: scale(0.92);
+}
+
+.fab-confetti {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  box-shadow: 0 10px 22px -5px rgba(124, 58, 237, 0.45);
+}
+
+.fab-confetti:hover {
+  box-shadow: 0 14px 26px -5px rgba(124, 58, 237, 0.65);
+}
+
+.fab-balloons {
+  background: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+  box-shadow: 0 10px 22px -5px rgba(236, 72, 153, 0.45);
+  animation: gentlePulse 3s infinite ease-in-out;
+}
+
+.fab-balloons:hover {
+  box-shadow: 0 14px 26px -5px rgba(236, 72, 153, 0.65);
+}
+
+.fab-heart {
+  background: linear-gradient(135deg, #f472b6 0%, #db2777 100%);
+  box-shadow: 0 10px 22px -5px rgba(219, 39, 119, 0.45);
+}
+
+.fab-heart:hover {
+  box-shadow: 0 14px 26px -5px rgba(219, 39, 119, 0.65);
+}
+
+/* Dynamic floating heart element spawned by JS */
+.spawned-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  user-select: none;
+  animation: floatUpAndFade 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ==========================================================================
+   Keyframe Animations
+   ========================================================================== */
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes floatSmall {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes floatDrift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(8deg); }
+}
+
+@keyframes crownHover {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes haloBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+}
+
+@keyframes auraPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50% { transform: translate(-50%, -50%) scale(1.18); opacity: 0.55; }
+}
+
+@keyframes heartBeating {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes butterflyDrift {
+  0%, 100% { transform: translate(80px, 90px) rotate(0deg); }
+  25% { transform: translate(95px, 80px) rotate(8deg); }
+  75% { transform: translate(70px, 98px) rotate(-6deg); }
+}
+
+@keyframes balloonBobbing {
+  0% { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(-16px) rotate(2deg); }
+}
+
+@keyframes stringWave {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.4); }
+  100% { box-shadow: 0 16px 35px 2px rgba(219, 39, 119, 0.6); }
+}
+
+@keyframes mouseScroll {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 12px); }
+}
+
+@keyframes bounceSparkle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes eqJump {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+@keyframes floatUpAndFade {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(var(--drift-x, 20px), -120px) scale(1.1) rotate(15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--drift-x, 20px) * 1.5), -240px) scale(0.9) rotate(-10deg);
+  }
+}
+
+@keyframes babyPeekBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg); }
+}
+
+@keyframes springPop {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.92) translateY(8px); }
+  60% { transform: scale(1.08) translateY(-12px); }
+  85% { transform: scale(0.97) translateY(2px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Card Popping On Top of Box with Curve */
+@keyframes cardPopOnTopWithCurve {
+  0% {
+    opacity: 0;
+    transform: translateY(90px) scale(0.65) rotate(-3.5deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1.03) rotate(1.5deg);
+  }
+  80% {
+    transform: translateY(4px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+/* Synchronized Baby Pop-Up Animation on Box Tap */
+@keyframes babySpringOutOfBox {
+  0% {
+    transform: translateY(75px) scale(0.5);
+    opacity: 0.2;
+  }
+  45% {
+    transform: translateY(-34px) scale(1.22);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(6px) scale(0.96);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes highlightPulseGlow {
+  0%, 100% {
+    box-shadow: 0 20px 48px -10px rgba(219, 39, 119, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 0 3.5px #ffd700, 0 26px 55px -6px rgba(219, 39, 119, 0.45);
+    border-color: #ffd700;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Optimization
+   ========================================================================== */
+
+/* --- 1. Large Tablets & Small Laptops (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  .section {
+    padding: 85px 0;
+  }
+
+  .beginning-grid {
+    gap: 36px;
+  }
+
+  .parents-family-grid {
+    gap: 32px;
+  }
+
+  /* Scaled Semicircle Arc for 1024px Screens */
+  .blessing-arc-card {
+    width: 112px;
+    height: 128px;
+  }
+
+  .box-opened .blessing-arc-card[data-index="0"] { --target-x: -250px; --target-y: -122px; --target-rot: -32deg; }
+  .box-opened .blessing-arc-card[data-index="1"] { --target-x: -188px; --target-y: -190px; --target-rot: -23deg; }
+  .box-opened .blessing-arc-card[data-index="2"] { --target-x: -118px; --target-y: -238px; --target-rot: -14deg; }
+  .box-opened .blessing-arc-card[data-index="3"] { --target-x: -42px;  --target-y: -260px; --target-rot: -5deg; }
+  .box-opened .blessing-arc-card[data-index="4"] { --target-x: 42px;   --target-y: -260px; --target-rot: 5deg; }
+  .box-opened .blessing-arc-card[data-index="5"] { --target-x: 118px;  --target-y: -238px; --target-rot: 14deg; }
+  .box-opened .blessing-arc-card[data-index="6"] { --target-x: 188px;  --target-y: -190px; --target-rot: 23deg; }
+  .box-opened .blessing-arc-card[data-index="7"] { --target-x: 250px;  --target-y: -122px; --target-rot: 32deg; }
+}
+
+/* --- 2. Tablets in Portrait & Landscape (max-width: 992px) --- */
+@media (max-width: 992px) {
+  .section {
+    padding: 75px 0;
+  }
+
+  /* Single Column Stacks for Showcase Grids */
+  .beginning-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .beginning-illustration-wrapper {
+    order: -1;
+  }
+
+  .parents-family-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin: 0 auto;
+    gap: 36px;
+  }
+
+  .family-sanctuary-card,
+  .parents-letter-card,
+  .father-content-card {
+    padding: 40px 30px 36px;
+  }
+
+  .card-header-group {
+    min-height: auto;
+  }
+
+  .family-quote-envelope {
+    min-height: auto;
+    padding: 22px 20px;
+  }
+
+  .family-feature-item {
+    min-height: auto;
+  }
+
+  .family-card-footer {
+    min-height: auto;
+  }
+
+  /* Compact Tablet Semicircle (min-width: 641px) */
+  .blessings-card {
+    min-height: 670px;
+    padding: 36px 20px;
+  }
+
+  .blessing-arc-card {
+    width: 100px;
+    height: 120px;
+  }
+
+  .box-opened .blessing-arc-card[data-index="0"] { --target-x: -215px; --target-y: -105px; --target-rot: -32deg; }
+  .box-opened .blessing-arc-card[data-index="1"] { --target-x: -162px; --target-y: -164px; --target-rot: -23deg; }
+  .box-opened .blessing-arc-card[data-index="2"] { --target-x: -102px; --target-y: -206px; --target-rot: -14deg; }
+  .box-opened .blessing-arc-card[data-index="3"] { --target-x: -36px;  --target-y: -224px; --target-rot: -5deg; }
+  .box-opened .blessing-arc-card[data-index="4"] { --target-x: 36px;   --target-y: -224px; --target-rot: 5deg; }
+  .box-opened .blessing-arc-card[data-index="5"] { --target-x: 102px;  --target-y: -206px; --target-rot: 14deg; }
+  .box-opened .blessing-arc-card[data-index="6"] { --target-x: 162px;  --target-y: -164px; --target-rot: 23deg; }
+  .box-opened .blessing-arc-card[data-index="7"] { --target-x: 215px;  --target-y: -105px; --target-rot: 32deg; }
+}
+
+/* --- 3. Mobile Header & Tablet Portrait (max-width: 768px) --- */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .site-header {
+    padding: 10px 0;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* Mobile Navigation Slide-Down Overlay */
+  .nav-links {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 20px 24px 24px;
+    gap: 12px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+    border-bottom: 2px solid rgba(244, 114, 182, 0.25);
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform var(--transition-normal), opacity var(--transition-normal), visibility var(--transition-normal);
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .nav-link:hover {
+    background: rgba(253, 242, 248, 0.9);
+  }
+
+  /* Hamburger Bars Animation */
+  .mobile-menu-toggle.open .bar:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .mobile-menu-toggle.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-toggle.open .bar:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  /* Section 1 Hero */
+  .hero-section {
+    padding-top: 95px;
+    padding-bottom: 50px;
+    min-height: 100svh;
+    justify-content: flex-start;
+  }
+
+  .quote-card {
+    padding: 24px 20px;
+    margin-bottom: 28px;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 35px;
+    gap: 12px;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  /* Section 2 Caricature Frame */
+  .parents-caricature-frame {
+    max-width: 360px;
+  }
+
+  /* Section 3 Parents & Father Cards */
+  .family-sanctuary-card,
+  .parents-letter-card,
+  .father-content-card {
+    padding: 34px 22px 28px;
+    border-radius: 26px;
+  }
+
+  .card-maintitle {
+    font-size: 1.65rem;
+  }
+
+  .family-quote-envelope {
+    padding: 20px 18px;
+    margin-bottom: 22px;
+  }
+
+  .family-envelope-text {
+    font-size: 1.02rem;
+  }
+
+  .family-script-quote {
+    font-size: 1.5rem;
+  }
+
+  .family-script-quote.script-quote-father {
+    font-size: 1.45rem;
+  }
+
+  .father-action-wrapper .btn {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  /* Ambient Balloons & Floating Controls */
+  .balloon {
+    width: 50px;
+    height: 64px;
+  }
+
+  /* Modals */
+  .blessing-modal-dialog,
+  .image-lightbox-dialog {
+    width: 92%;
+    max-width: 520px;
+  }
+
+  .floating-fab-container {
+    bottom: 16px;
+    right: 16px;
+    gap: 8px;
+  }
+
+  .fab-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+}
+
+/* --- 4. Mobile Devices & Small Tablets (max-width: 640px) --- */
+@media (max-width: 640px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  /* SECTION 6: MAGICAL GIFT BOX MOBILE LAYOUT */
+  .blessings-card {
+    min-height: 540px;
+    padding: 24px 10px;
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blessings-interactive-stage {
+    height: 480px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+  }
+
+  /* Halo glow scaled to mobile */
+  .magical-box-halo {
+    width: 270px;
+    height: 270px;
+    filter: blur(24px);
+  }
+
+  /* Gift Box Centerpiece */
+  .center-stage-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .magical-gift-box-3d {
+    width: 175px;
+    height: 128px;
+  }
+
+  .box-lid-3d {
+    width: 188px;
+  }
+
+  .popped-baby-centerpiece {
+    width: 115px;
+    height: 105px;
+    margin-left: -57px;
+    bottom: 68px;
+  }
+
+  .box-open-instruction {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    margin-top: 14px;
+  }
+
+  /* Semicircle Cards Container on Mobile: Keeps the magical arc popup, scaled down for mobile! */
+  .semicircle-cards-container {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 15;
+    display: block;
+    opacity: 1;
+  }
+
+  .box-opened .semicircle-cards-container {
+    pointer-events: auto;
+  }
+
+  .blessing-arc-card {
+    position: absolute;
+    width: 74px;
+    height: 90px;
+    transform: translate(-50%, -50%) scale(0.15);
+    opacity: 0;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow 0.3s ease;
+    transform-origin: center center;
+    pointer-events: auto;
+  }
+
+  .box-opened .blessing-arc-card {
+    animation: arcCardBloom 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    animation-delay: calc(0.1s + var(--card-i) * 0.08s);
+  }
+
+  .box-opened .blessing-arc-card[data-index="0"] { --target-x: -130px; --target-y: -68px;  --target-rot: -32deg; }
+  .box-opened .blessing-arc-card[data-index="1"] { --target-x: -105px; --target-y: -124px; --target-rot: -23deg; }
+  .box-opened .blessing-arc-card[data-index="2"] { --target-x: -68px;  --target-y: -168px; --target-rot: -14deg; }
+  .box-opened .blessing-arc-card[data-index="3"] { --target-x: -24px;  --target-y: -192px; --target-rot: -5deg; }
+  .box-opened .blessing-arc-card[data-index="4"] { --target-x: 24px;   --target-y: -192px; --target-rot: 5deg; }
+  .box-opened .blessing-arc-card[data-index="5"] { --target-x: 68px;   --target-y: -168px; --target-rot: 14deg; }
+  .box-opened .blessing-arc-card[data-index="6"] { --target-x: 105px;  --target-y: -124px; --target-rot: 23deg; }
+  .box-opened .blessing-arc-card[data-index="7"] { --target-x: 130px;  --target-y: -68px;  --target-rot: 32deg; }
+
+  .card-inner {
+    padding: 6px 4px;
+    border-radius: 14px;
+  }
+
+  .card-icon {
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+  }
+
+  .card-number-badge {
+    font-size: 0.55rem;
+    padding: 1px 5px;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+
+  .card-theme {
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+
+  .card-preview {
+    display: none;
+  }
+
+  .card-tap-hint {
+    font-size: 0.54rem;
+    padding: 2px 4px;
+  }
+
+  /* Final Celebration & Replay Button on Mobile */
+  .box-opened .blessings-final-celebration {
+    order: 3;
+    margin-top: 24px;
+    padding: 0 4px;
+    display: block;
+    max-height: 500px;
+  }
+
+  .final-celebration-message-box {
+    padding: 18px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .final-celebration-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .btn-replay-blessings {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .modal-card-content {
+    padding: 28px 18px 22px;
+  }
+
+  /* Section 2 Caricature Frame on Mobile */
+  .parents-caricature-frame {
+    max-width: 320px;
+    padding: 12px 12px 14px;
+    border-radius: 28px;
+  }
+
+  .caricature-caption-tag {
+    font-size: 0.82rem;
+    padding: 5px 14px;
+  }
+
+  /* Family Bond Divider on Mobile */
+  .family-bond-divider {
+    margin: 40px auto 34px;
+    padding: 0 10px;
+  }
+
+  .divider-badge {
+    font-size: 0.82rem;
+    padding: 6px 16px;
+    text-align: center;
+  }
+
+  /* Site Footer Mobile Refinement */
+  .site-footer {
+    padding: 12px 0 10px;
+  }
+
+  .footer-text {
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+}
+
+/* --- 5. Compact Mobile & Small Phones (max-width: 540px) --- */
+@media (max-width: 540px) {
+  /* Header Compact Mode: Icon-only music button to prevent wrapping */
+  .music-label {
+    display: none;
+  }
+
+  .music-toggle-btn {
+    padding: 7px 11px;
+    gap: 6px;
+  }
+
+  .brand-logo {
+    font-size: 1.05rem;
+    gap: 6px;
+  }
+
+  .brand-icon {
+    font-size: 1.15rem;
+  }
+
+  /* Modals & Lightbox */
+  .modal-close-btn,
+  .lightbox-close-btn {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .lightbox-modal-card {
+    border-radius: 24px;
+  }
+
+  .lightbox-image-container {
+    padding: 10px;
+    max-height: 48vh;
+  }
+
+  .lightbox-full-img {
+    max-height: 44vh;
+    border-radius: 16px;
+  }
+
+  .lightbox-details-panel {
+    padding: 16px 14px 18px;
+  }
+
+  .lightbox-btn-row {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lightbox-btn-row .btn {
+    width: 100%;
+  }
+}
+
+/* --- 6. Phones & Small Mobile (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .hero-crown-wrapper {
+    width: 105px;
+    margin-bottom: 12px;
+  }
+
+  .hero-badge {
+    font-size: 0.78rem;
+    padding: 6px 16px;
+    letter-spacing: 1px;
+  }
+
+  .hero-title .title-sub {
+    font-size: 1.85rem;
+  }
+
+  .hero-title .title-main {
+    font-size: 2.7rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    margin-bottom: 18px;
+  }
+
+  .hero-arrival-badge {
+    padding: 6px 16px;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .arrival-pill {
+    font-size: 0.86rem;
+  }
+
+  .quote-text {
+    font-size: 1.1rem;
+  }
+
+  .pill {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  /* Section 3 Letter Card & Father Card */
+  .family-sanctuary-card,
+  .parents-letter-card,
+  .father-content-card {
+    padding: 28px 16px 24px;
+    border-radius: 22px;
+  }
+
+  .card-regal-badge {
+    font-size: 0.78rem;
+    padding: 6px 14px;
+  }
+
+  .card-maintitle {
+    font-size: 1.4rem;
+  }
+
+  .family-quote-envelope {
+    padding: 16px 14px;
+    margin-bottom: 20px;
+  }
+
+  .family-envelope-text {
+    font-size: 0.95rem;
+  }
+
+  .family-feature-item {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .feature-jewel-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+  }
+
+  .feature-title {
+    font-size: 0.96rem;
+  }
+
+  .feature-desc {
+    font-size: 0.82rem;
+  }
+
+  .booties-svg {
+    width: 120px;
+    height: 52px;
+  }
+
+  .family-script-quote {
+    font-size: 1.35rem;
+  }
+
+  .father-celebrate-btn {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
+
+  /* Ambient Balloons */
+  .balloon {
+    width: 44px;
+    height: 56px;
+  }
+
+  .balloon-string {
+    height: 26px;
+    bottom: -30px;
+  }
+
+  /* Section 6 Card Typography */
+  .blessing-arc-card {
+    height: 124px;
+  }
+
+  .card-inner {
+    padding: 9px 7px;
+  }
+
+  .card-theme {
+    font-size: 0.84rem;
+  }
+
+  .card-preview {
+    font-size: 0.72rem;
+  }
+
+  .card-icon {
+    font-size: 1.3rem;
+  }
+}
+
+/* --- 7. Ultra-Compact Mobile (max-width: 380px) --- */
+@media (max-width: 380px) {
+  .hero-title .title-main {
+    font-size: 2.3rem;
+  }
+
+  .hero-title .title-sub {
+    font-size: 1.55rem;
+  }
+
+  .brand-text {
+    font-size: 0.95rem;
+  }
+
+  .parents-caricature-frame {
+    max-width: 280px;
+    padding: 10px;
+    border-radius: 22px;
+  }
+
+  .blessings-card {
+    min-height: 500px;
+    padding: 18px 8px;
+  }
+
+  .blessings-interactive-stage {
+    height: 450px;
+    padding-bottom: 20px;
+  }
+
+  .magical-gift-box-3d {
+    width: 155px;
+    height: 115px;
+  }
+
+  .box-lid-3d {
+    width: 168px;
+  }
+
+  .popped-baby-centerpiece {
+    width: 105px;
+    height: 95px;
+    margin-left: -52px;
+    bottom: 60px;
+  }
+
+  .blessing-arc-card {
+    width: 68px;
+    height: 82px;
+  }
+
+  .box-opened .blessing-arc-card[data-index="0"] { --target-x: -122px; --target-y: -62px;  --target-rot: -30deg; }
+  .box-opened .blessing-arc-card[data-index="1"] { --target-x: -98px;  --target-y: -115px; --target-rot: -22deg; }
+  .box-opened .blessing-arc-card[data-index="2"] { --target-x: -62px;  --target-y: -152px; --target-rot: -13deg; }
+  .box-opened .blessing-arc-card[data-index="3"] { --target-x: -21px;  --target-y: -174px; --target-rot: -4deg; }
+  .box-opened .blessing-arc-card[data-index="4"] { --target-x: 21px;   --target-y: -174px; --target-rot: 4deg; }
+  .box-opened .blessing-arc-card[data-index="5"] { --target-x: 62px;   --target-y: -152px; --target-rot: 13deg; }
+  .box-opened .blessing-arc-card[data-index="6"] { --target-x: 98px;   --target-y: -115px; --target-rot: 22deg; }
+  .box-opened .blessing-arc-card[data-index="7"] { --target-x: 122px;  --target-y: -62px;  --target-rot: 30deg; }
+
+  .card-inner {
+    padding: 5px 3px;
+    border-radius: 12px;
+  }
+
+  .card-theme {
+    font-size: 0.6rem;
+  }
+
+  .card-icon {
+    font-size: 1.05rem;
+  }
+
+  .card-tap-hint {
+    font-size: 0.5rem;
+    padding: 1px 3px;
+  }
+
+  .card-number-badge {
+    font-size: 0.6rem;
+    padding: 2px 5px;
+  }
+}
+
+/* Keyframes for Mobile Staggered Card Pop-In */
+@keyframes mobileCardBloom {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Accessibility: Respect Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

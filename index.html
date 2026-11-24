@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Princess Has Arrived! ✨ Welcome Baby Girl</title>
+  <meta name="description" content="A magical, emotional celebration of the arrival of a little princess. Welcome to the world, baby girl!">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=2.2">
+</head>
+<body>
+  <!-- Ambient Background Canvases -->
+  <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <!-- Ambient Celebration Balloons (Floating Throughout the Website) -->
+  <div class="ambient-balloons-layer" id="ambientBalloonsLayer" aria-hidden="true"></div>
+
+  <!-- Preloader Screen -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-content">
+      <div class="tiara-loader">
+        <svg viewBox="0 0 100 80" class="preloader-tiara" aria-hidden="true">
+          <path d="M10 65 L25 25 L40 50 L50 15 L60 50 L75 25 L90 65 Z" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="50" cy="12" r="5" fill="#ffb7c5"/>
+          <circle cx="25" cy="22" r="4" fill="#ffd1dc"/>
+          <circle cx="75" cy="22" r="4" fill="#ffd1dc"/>
+          <circle cx="10" cy="65" r="3.5" fill="#e9d5ff"/>
+          <circle cx="90" cy="65" r="3.5" fill="#e9d5ff"/>
+          <path d="M8 68 Q50 78 92 68" stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="preloader-title">Welcoming a Little Angel...</p>
+      <div class="preloader-sparkles">
+        <span>✨</span><span>💖</span><span>🌸</span><span>✨</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container">
+      <a href="#welcome" class="brand-logo" aria-label="A Little Princess Has Arrived">
+        <span class="brand-icon">👑</span>
+        <span class="brand-text">A Little Princess</span>
+      </a>
+
+      <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#welcome" class="nav-link">Welcome</a></li>
+        <li><a href="#beginning" class="nav-link">New Beginning</a></li>
+        <li><a href="#blessings" class="nav-link">Blessings &amp; Wishes</a></li>
+        <li><a href="#parents" class="nav-link">Parents &amp; Daddy's Girl</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Background Music Controller -->
+        <button id="musicToggleBtn" class="music-toggle-btn" aria-label="Toggle soothing lullaby music">
+          <span class="music-icon" id="musicIcon">🎵</span>
+          <span class="music-label" id="musicLabel">Play Music</span>
+          <div class="equalizer-bars" aria-hidden="true">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SVG Shared Defs (Gradients, filters) -->
+  <svg class="svg-defs" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <defs>
+      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fff3b0"/>
+        <stop offset="30%" stop-color="#ffd56b"/>
+        <stop offset="70%" stop-color="#d4af37"/>
+        <stop offset="100%" stop-color="#b8860b"/>
+      </linearGradient>
+      <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fff0f5"/>
+        <stop offset="50%" stop-color="#ffb7c5"/>
+        <stop offset="100%" stop-color="#f472b6"/>
+      </linearGradient>
+      <linearGradient id="lavenderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#faf5ff"/>
+        <stop offset="50%" stop-color="#d8b4fe"/>
+        <stop offset="100%" stop-color="#c084fc"/>
+      </linearGradient>
+      <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#fce7f3"/>
+      </linearGradient>
+      <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffd1dc"/>
+        <stop offset="50%" stop-color="#f472b6"/>
+        <stop offset="100%" stop-color="#db2777"/>
+      </linearGradient>
+      <linearGradient id="boxInnerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#701a75"/>
+        <stop offset="100%" stop-color="#4a044e"/>
+      </linearGradient>
+      <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="4" result="glow"/>
+        <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <main>
+    <!-- SECTION 1: Magical Welcome Screen (Hero) -->
+    <section class="section hero-section" id="welcome">
+      <div class="floating-decorations" aria-hidden="true">
+        <span class="floating-item item-1">✨</span>
+        <span class="floating-item item-2">🌸</span>
+        <span class="floating-item item-3">💖</span>
+        <span class="floating-item item-4">⭐</span>
+        <span class="floating-item item-5">🦋</span>
+        <span class="floating-item item-6">✨</span>
+        <span class="floating-item item-7">🎀</span>
+        <span class="floating-item item-8">🌙</span>
+      </div>
+
+      <div class="container hero-container">
+        <!-- Cute Crown Illustration -->
+        <div class="hero-crown-wrapper">
+          <svg class="hero-crown-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Princess Crown">
+            <g filter="url(#softGlow)">
+              <path d="M20 95 Q80 110 140 95 Q140 102 135 107 Q80 120 25 107 Q20 102 20 95 Z" fill="url(#goldGrad)" />
+              <path d="M26 100 Q80 112 134 100" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+              
+              <circle cx="35" cy="102" r="3.5" fill="#fff" />
+              <circle cx="55" cy="105" r="3.5" fill="#fff" />
+              <circle cx="80" cy="106" r="4" fill="#ffb7c5" />
+              <circle cx="105" cy="105" r="3.5" fill="#fff" />
+              <circle cx="125" cy="102" r="3.5" fill="#fff" />
+
+              <path d="M20 95 L35 48 L58 75 L80 25 L102 75 L125 48 L140 95 Q80 108 20 95 Z" fill="url(#goldGrad)" stroke="#c69500" stroke-width="1"/>
+              
+              <path d="M35 48 Q58 55 58 75" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M125 48 Q102 55 102 75" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M58 75 Q80 40 80 25 Q80 40 102 75" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+              <circle cx="80" cy="22" r="7.5" fill="#ff69b4" />
+              <circle cx="80" cy="22" r="4.5" fill="#fff" opacity="0.8"/>
+              <circle cx="35" cy="46" r="6" fill="#e9d5ff" />
+              <circle cx="35" cy="46" r="3" fill="#fff" opacity="0.8"/>
+              <circle cx="125" cy="46" r="6" fill="#e9d5ff" />
+              <circle cx="125" cy="46" r="3" fill="#fff" opacity="0.8"/>
+              <circle cx="58" cy="73" r="4.5" fill="#ffd1dc" />
+              <circle cx="102" cy="73" r="4.5" fill="#ffd1dc" />
+
+              <path d="M80 82 C80 82 72 74 72 68 C72 63 76 60 80 64 C84 60 88 63 88 68 C88 74 80 82 80 82 Z" fill="#ff3385" filter="url(#softGlow)"/>
+              <circle cx="78" cy="65" r="1.5" fill="#fff" />
+            </g>
+            <polygon points="80,5 82,14 91,16 82,18 80,27 78,18 69,16 78,14" fill="#ffe066" class="sparkle-anim"/>
+            <polygon points="20,35 22,41 28,42 22,44 20,50 18,44 12,42 18,41" fill="#ffe066" class="sparkle-anim delay-1"/>
+            <polygon points="140,35 142,41 148,42 142,44 140,50 138,44 132,42 138,41" fill="#ffe066" class="sparkle-anim delay-2"/>
+          </svg>
+        </div>
+
+        <div class="hero-badge">
+          <span class="sparkle-icon">✨</span>
+          <span>A Precious Miracle Has Arrived</span>
+          <span class="sparkle-icon">✨</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="title-sub">Welcome to the World</span>
+          <span class="title-main">It's a Girl!</span>
+        </h1>
+
+        <p class="hero-tagline">A little princess has arrived!</p>
+
+        <!-- Precious Arrival Announcement Pill -->
+        <div class="hero-arrival-badge" aria-label="Date of birth: 20/11/2026, Time: 12:26 AM">
+          <span class="arrival-pill">
+            <span class="arrival-icon">📅</span>
+            <span class="arrival-label">Date:</span>
+            <strong class="arrival-value">20/11/2026</strong>
+          </span>
+          <span class="arrival-divider">✨</span>
+          <span class="arrival-pill">
+            <span class="arrival-icon">⏰</span>
+            <span class="arrival-label">Time:</span>
+            <strong class="arrival-value">12:26 AM</strong>
+          </span>
+        </div>
+
+        <!-- Main Emotional Quote Card -->
+        <div class="quote-card glass-card">
+          <div class="quote-ornament top-ornament" aria-hidden="true">🌸 ❧ 🌸</div>
+          <p class="quote-text">
+            “Some moments change our lives forever. And some little hands steal our hearts forever. Welcome to the world, little princess!”
+          </p>
+          <div class="quote-ornament bottom-ornament" aria-hidden="true">༺ 💖 ༻</div>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="hero-cta-group">
+          <button id="enterCelebrationBtn" class="btn btn-primary btn-glow" aria-label="Enter the Celebration">
+            <span class="btn-icon">🎉</span>
+            <span class="btn-text">Enter the Celebration</span>
+            <span class="btn-sparkle">✨</span>
+          </button>
+          
+          <button id="showerLoveHeroBtn" class="btn btn-secondary" aria-label="Shower with Hearts">
+            <span class="btn-icon">💖</span>
+            <span class="btn-text">Shower Her with Love</span>
+          </button>
+        </div>
+
+        <div class="scroll-indicator">
+          <a href="#beginning" aria-label="Scroll down to explore">
+            <span class="scroll-mouse">
+              <span class="scroll-wheel"></span>
+            </span>
+            <span class="scroll-text">Scroll to Celebrate</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: A Beautiful New Beginning -->
+    <section class="section beginning-section" id="beginning">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">A Magical Chapter</span>
+          <h2 class="section-title">A Beautiful New Beginning</h2>
+          <div class="title-divider">
+            <span class="line"></span>
+            <span class="divider-icon">🎀</span>
+            <span class="line"></span>
+          </div>
+        </div>
+
+        <div class="beginning-grid">
+          <div class="beginning-card glass-card">
+            <div class="card-ribbon">
+              <span>Pure Love</span>
+            </div>
+            <div class="beginning-message-wrapper">
+              <span class="quote-mark">“</span>
+              <p class="beginning-message">
+                Nine months of waiting, countless dreams, and now a lifetime of love begins. A tiny little soul has entered this world and made everything more beautiful.
+              </p>
+              <div class="message-subtext">
+                <p>From her very first breath, she brought a sky full of sunshine, a garden of blooming flowers, and an eternity of sweet memories waiting to be written.</p>
+              </div>
+              <div class="milestone-pills">
+                <span class="pill milestone-highlight"><span class="pill-icon">📅</span> 20/11/2026</span>
+                <span class="pill milestone-highlight"><span class="pill-icon">⏰</span> 12:26 AM</span>
+                <span class="pill"><span class="pill-icon">👣</span> Tiny Feet</span>
+                <span class="pill"><span class="pill-icon">👶</span> Sweet Giggles</span>
+                <span class="pill"><span class="pill-icon">💫</span> Endless Wonder</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caricature Illustration of Sounak, His Wife & Their Baby Girl -->
+          <div class="beginning-illustration-wrapper">
+            <div class="illustration-halo"></div>
+            
+            <div class="parents-caricature-frame glass-card" id="parentsCaricatureFrame" role="button" tabindex="0" aria-label="Click to view bigger caricature picture" title="Click to view bigger picture ✨">
+              <div class="caricature-img-container">
+                <img src="assets/parents_caricature.jpg" alt="Heartwarming caricature illustration of Sounak and his wife holding their baby girl" class="parents-caricature-img" id="parentsCaricatureImg" loading="lazy">
+                <div class="caricature-zoom-overlay" aria-hidden="true">
+                  <div class="zoom-badge">
+                    <span class="zoom-icon">🔍</span>
+                    <span class="zoom-text">Click for bigger picture</span>
+                  </div>
+                </div>
+              </div>
+              <div class="caricature-caption-tag">
+                <span class="tag-icon">👑</span>
+                <span>Mommy, Daddy &amp; Their Little Princess</span>
+                <span class="tag-sparkle">💖</span>
+              </div>
+              <div class="caricature-birth-stamp">
+                <span>Born: <strong>20/11/2026</strong> at <strong>12:26 AM</strong> ✨</span>
+              </div>
+            </div>
+
+            <!-- Floating tiny sparkles around the caricature -->
+            <div class="caricature-floating-elements" aria-hidden="true">
+              <span class="caricature-sparkle cs-1">✨</span>
+              <span class="caricature-sparkle cs-2">🌸</span>
+              <span class="caricature-sparkle cs-3">⭐</span>
+              <span class="caricature-sparkle cs-4">💖</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 8 Blessings for Our Little Princess -->
+    <section class="section blessings-section" id="blessings">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-tag">A Gift of Endless Love</span>
+          <h2 class="section-title">8 Blessings, Infinite Love</h2>
+          <p class="section-subtitle">
+            A little box filled with endless love and blessings. Open it to discover eight special wishes for our little princess.
+          </p>
+          <div class="title-divider">
+            <span class="line"></span>
+            <span class="divider-icon">🎁</span>
+            <span class="line"></span>
+          </div>
+        </div>
+
+        <!-- Blessings Interactive Stage Container -->
+        <div class="blessings-card glass-card text-center" id="blessingsCard">
+          
+          <div class="blessings-interactive-stage" id="blessingsStage">
+            <!-- Background Halo Glow -->
+            <div class="magical-box-halo" aria-hidden="true"></div>
+
+            <!-- Floating tiny hearts and stars around the gift box -->
+            <div class="box-floating-sparkles" aria-hidden="true">
+              <span class="box-sparkle s-1">✨</span>
+              <span class="box-sparkle s-2">💖</span>
+              <span class="box-sparkle s-3">⭐</span>
+              <span class="box-sparkle s-4">🌸</span>
+              <span class="box-sparkle s-5">🎀</span>
+              <span class="box-sparkle s-6">✨</span>
+              <span class="box-sparkle s-7">💕</span>
+              <span class="box-sparkle s-8">⭐</span>
+            </div>
+
+            <!-- SEMI-CIRCLE CARDS CONTAINER (Surrounding the Baby Illustration) -->
+            <div class="semicircle-cards-container" id="semicircleCardsContainer" aria-label="8 Blessings in a semi-circle arc">
+              <!-- Card 1: Barnali Patra -->
+              <div class="blessing-arc-card" data-index="0" style="--card-i: 1;" role="button" tabindex="0" aria-label="Wish from Barnali Patra">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">👼</span>
+                  <span class="card-number-badge">Barnali</span>
+                  <h4 class="card-theme">Endless Blessings</h4>
+                  <p class="card-preview">Welcome to the world Little One 👼 May God bless you with a healthy, happy and beautiful life...</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 2: Sangita Satpathy -->
+              <div class="blessing-arc-card" data-index="1" style="--card-i: 2;" role="button" tabindex="0" aria-label="Wish from Sangita Satpathy">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">🌸</span>
+                  <span class="card-number-badge">Sangita</span>
+                  <h4 class="card-theme">Little Angel</h4>
+                  <p class="card-preview">Welcome to the world, little angel ❤️ May your tiny feet walk towards a lifetime happiness...</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 3: Suvadeep -->
+              <div class="blessing-arc-card" data-index="2" style="--card-i: 3;" role="button" tabindex="0" aria-label="Wish from Suvadeep">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">💖</span>
+                  <span class="card-number-badge">Suvadeep</span>
+                  <h4 class="card-theme">পুঁচকি লক্ষ্মী</h4>
+                  <p class="card-preview">সৌনক দা, তোমার পুঁচকি লক্ষ্মীটার জন্য আমার তরফ থেকে রইল অনেক অনেক ভালোবাসা, আদর...</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 4: Disha Chakraborty (Top Center Apex Left) -->
+              <div class="blessing-arc-card" data-index="3" style="--card-i: 4;" role="button" tabindex="0" aria-label="Wish from Disha Chakraborty">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">⭐</span>
+                  <span class="card-number-badge">Disha</span>
+                  <h4 class="card-theme">Grandest Joy</h4>
+                  <p class="card-preview">The tiniest arrival, the grandest joy, the sweetest new chapter. 💖</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 5: Maulik Sheth (Top Center Apex Right) -->
+              <div class="blessing-arc-card" data-index="4" style="--card-i: 5;" role="button" tabindex="0" aria-label="Wish from Maulik Sheth">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">🌟</span>
+                  <span class="card-number-badge">Maulik</span>
+                  <h4 class="card-theme">Adding Blessings</h4>
+                  <p class="card-preview">Congratulations on adding blessings to your life. ✨</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 6: Moumi -->
+              <div class="blessing-arc-card" data-index="5" style="--card-i: 6;" role="button" tabindex="0" aria-label="Wish from Moumi">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">👑</span>
+                  <span class="card-number-badge">Moumi</span>
+                  <h4 class="card-theme">Welcome to Our Zone</h4>
+                  <p class="card-preview">Hey! little princess welcome to our zone 😍. May God Bless You &amp; have a great life...</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 7: Dipti -->
+              <div class="blessing-arc-card" data-index="6" style="--card-i: 7;" role="button" tabindex="0" aria-label="Wish from Dipti">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">🌷</span>
+                  <span class="card-number-badge">Dipti</span>
+                  <h4 class="card-theme">Little Blossom</h4>
+                  <p class="card-preview">The world just got a little sweeter. Welcome, little blossom! 🌷 May your tiny world always be filled with love &amp; magic 💗</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+
+              <!-- Card 8: Payel -->
+              <div class="blessing-arc-card" data-index="7" style="--card-i: 8;" role="button" tabindex="0" aria-label="Wish from Payel">
+                <div class="card-inner glass-card">
+                  <div class="card-glow-aura"></div>
+                  <span class="card-icon">🦋</span>
+                  <span class="card-number-badge">Payel</span>
+                  <h4 class="card-theme">Little Butterfly</h4>
+                  <p class="card-preview">Hello, little butterfly! 🦋 May you always cherish God's beautiful creations, embrace the goodness, and never let the
+                  world's ugliness dim your innocent light...</p>
+                  <span class="card-tap-hint">Tap to Read ✨</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CENTER MAGICAL GIFT BOX & BABY POPUP WRAPPER -->
+            <div class="center-stage-wrapper">
+              
+              <!-- Radiant Golden Light Rays (revealed on opening) -->
+              <div class="golden-rays-aura" id="goldenRaysAura" aria-hidden="true">
+                <span class="ray r-1"></span>
+                <span class="ray r-2"></span>
+                <span class="ray r-3"></span>
+                <span class="ray r-4"></span>
+                <span class="ray r-5"></span>
+                <span class="ray r-6"></span>
+                <span class="ray r-7"></span>
+                <span class="ray r-8"></span>
+              </div>
+
+              <!-- POPPED BABY PRINCESS ILLUSTRATION -->
+              <div class="popped-baby-centerpiece" id="poppedBabyCenterpiece" aria-label="Cute baby princess popping out of the gift box">
+                <svg class="baby-face-svg" viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Smiling baby girl with princess tiara">
+                  <g class="baby-sparkles-aura">
+                    <circle cx="35" cy="50" r="3" fill="#ffd700"/>
+                    <circle cx="165" cy="45" r="3" fill="#ffd700"/>
+                    <polygon points="25,90 27,95 33,96 28,100 29,106 25,103 20,106 21,100 17,96 23,95" fill="#f472b6"/>
+                    <polygon points="175,85 177,90 183,91 178,95 179,101 175,98 170,101 171,95 167,91 173,90" fill="#f472b6"/>
+                  </g>
+
+                  <!-- Cute Baby Bib -->
+                  <path d="M 50 150 Q 100 170 150 150 Q 140 180 100 180 Q 60 180 50 150 Z" fill="#ffd1dc" stroke="#ff9bb2" stroke-width="2"/>
+                  <path d="M 70 155 Q 100 175 130 155" stroke="#fff" stroke-width="2" fill="none"/>
+
+                  <!-- Baby Head & Rosy Cheeks -->
+                  <ellipse cx="100" cy="105" rx="55" ry="50" fill="#ffe3d8"/>
+                  <circle cx="68" cy="120" r="12" fill="#ff8da1" opacity="0.45" filter="url(#softGlow)"/>
+                  <circle cx="132" cy="120" r="12" fill="#ff8da1" opacity="0.45" filter="url(#softGlow)"/>
+
+                  <!-- Adorable Eyes -->
+                  <g class="baby-eyes">
+                    <ellipse cx="76" cy="100" rx="9" ry="11" fill="#4a2511"/>
+                    <circle cx="73" cy="97" r="4" fill="#ffffff"/>
+                    <circle cx="78" cy="104" r="2" fill="#ffffff"/>
+                    <ellipse cx="124" cy="100" rx="9" ry="11" fill="#4a2511"/>
+                    <circle cx="121" cy="97" r="4" fill="#ffffff"/>
+                    <circle cx="126" cy="104" r="2" fill="#ffffff"/>
+                    
+                    <!-- Lashes & Brows -->
+                    <path d="M 68 92 Q 76 86 84 92" stroke="#4a2511" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    <line x1="68" y1="91" x2="63" y2="87" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="75" y1="88" x2="74" y2="82" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="84" y1="91" x2="88" y2="87" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+
+                    <path d="M 116 92 Q 124 86 132 92" stroke="#4a2511" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    <line x1="116" y1="91" x2="112" y2="87" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="124" y1="88" x2="124" y2="82" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="132" y1="91" x2="137" y2="87" stroke="#4a2511" stroke-width="2" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Nose & Joyful Smile -->
+                  <circle cx="100" cy="112" r="3.5" fill="#e89885"/>
+                  <path d="M 88 122 Q 100 138 112 122 Z" fill="#b0586e"/>
+                  <path d="M 93 129 Q 100 135 107 129" fill="#ff758f"/>
+                  <path d="M 86 122 Q 100 120 114 122" stroke="#8c3e52" stroke-width="2" fill="none"/>
+
+                  <!-- Golden Princess Tiara -->
+                  <g class="baby-princess-tiara" filter="url(#softGlow)">
+                    <path d="M 62 65 Q 100 55 138 65 L 142 69 Q 100 59 58 69 Z" fill="url(#goldGrad)"/>
+                    <path d="M 64 65 L 75 42 L 88 56 L 100 30 L 112 56 L 125 42 L 136 65 Z" fill="url(#goldGrad)" stroke="#c69500" stroke-width="1"/>
+                    <circle cx="100" cy="28" r="6" fill="#ff3385"/>
+                    <circle cx="100" cy="28" r="2.5" fill="#ffffff"/>
+                    <circle cx="75" cy="40" r="4" fill="#c084fc"/>
+                    <circle cx="125" cy="40" r="4" fill="#c084fc"/>
+                    <circle cx="88" cy="54" r="3" fill="#ffb7c5"/>
+                    <circle cx="112" cy="54" r="3" fill="#ffb7c5"/>
+                  </g>
+
+                  <!-- Little Hair Curls -->
+                  <path d="M 50 82 Q 44 95 53 100" stroke="#78350f" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  <path d="M 150 82 Q 156 95 147 100" stroke="#78350f" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  <path d="M 100 68 Q 105 76 96 80" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+                  <!-- Baby Hands Waving from Box -->
+                  <g class="baby-hands">
+                    <ellipse cx="62" cy="158" rx="14" ry="11" fill="#ffe3d8" stroke="#fbcfe8" stroke-width="1.5"/>
+                    <circle cx="54" cy="154" r="4" fill="#ffe3d8"/>
+                    <circle cx="60" cy="150" r="4" fill="#ffe3d8"/>
+                    <circle cx="67" cy="151" r="4" fill="#ffe3d8"/>
+                    <ellipse cx="138" cy="158" rx="14" ry="11" fill="#ffe3d8" stroke="#fbcfe8" stroke-width="1.5"/>
+                    <circle cx="133" cy="151" r="4" fill="#ffe3d8"/>
+                    <circle cx="140" cy="150" r="4" fill="#ffe3d8"/>
+                    <circle cx="146" cy="154" r="4" fill="#ffe3d8"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- MAGICAL 3D GIFT BOX (Click to open!) -->
+              <div class="magical-gift-box-3d" id="magicalGiftBox" role="button" tabindex="0" aria-label="Open the magical gift box" title="Click or tap to open the gift box!">
+                <!-- Realistic Box Lid with Ribbon & Fluffy Bow -->
+                <div class="box-lid-3d" id="boxLid3d">
+                  <div class="lid-top-face">
+                    <div class="lid-ribbon-horizontal"></div>
+                    <div class="lid-ribbon-vertical"></div>
+                    <!-- Big Fluffy Golden/Pink Bow -->
+                    <div class="lid-bow-knot">
+                      <div class="bow-loop bow-loop-left"></div>
+                      <div class="bow-loop bow-loop-right"></div>
+                      <div class="bow-center-pearl"></div>
+                      <div class="bow-tail bow-tail-left"></div>
+                      <div class="bow-tail bow-tail-right"></div>
+                    </div>
+                  </div>
+                  <div class="lid-lip-edge"></div>
+                </div>
+
+                <!-- Box Body Face with Glowing Ribbons -->
+                <div class="box-body-3d">
+                  <div class="box-body-inner-shadow"></div>
+                  <div class="box-body-ribbon-v"></div>
+                  <div class="box-body-ribbon-h"></div>
+                  <div class="box-shimmer-highlight"></div>
+                  <span class="box-seal-icon">👑</span>
+                </div>
+              </div>
+
+              <!-- Animated Instruction Below Box -->
+              <div class="box-open-instruction" id="boxOpenInstruction" role="button" tabindex="0">
+                <span class="instruction-sparkle">✨</span>
+                <span class="instruction-text">Tap the box to reveal the blessings!</span>
+                <span class="instruction-sparkle">🎁</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FINAL CELEBRATION & REPLAY CONTAINER (Appears when box is opened) -->
+          <div class="blessings-final-celebration" id="blessingsFinalCelebration" aria-live="polite">
+            <div class="celebration-floating-hearts" aria-hidden="true">
+              <span>💖</span><span>🌸</span><span>⭐</span><span>👑</span><span>✨</span><span>🎀</span><span>💕</span>
+            </div>
+
+            <div class="final-celebration-message-box">
+              <p class="final-celebration-text">
+                “Eight hearts, eight blessings, one little princess. You are loved more than words can ever express!”
+              </p>
+            </div>
+
+            <div class="blessings-replay-wrapper">
+              <button class="btn btn-primary btn-replay-blessings" id="replayBlessingsBtn" aria-label="Replay the blessing box opening animation">
+                <span class="btn-icon">✨</span>
+                <span>Open Box Again</span>
+                <span class="btn-sparkle">🎁</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: For Parents & Daddy's Girl (Unified Family Celebration) -->
+    <section class="section parents-section" id="parents">
+      <!-- Secondary Anchor for direct #father navigation -->
+      <div id="father" class="section-anchor" aria-hidden="true"></div>
+      
+      <!-- Ambient Fairytale Glow Elements -->
+      <div class="parents-ambient-glow glow-1" aria-hidden="true"></div>
+      <div class="parents-ambient-glow glow-2" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">✨ A Sacred Bond &amp; Eternal Joy ✨</span>
+          <h2 class="section-title">For the Parents &amp; Daddy's Little Princess</h2>
+          <div class="title-divider">
+            <span class="line"></span>
+            <span class="divider-icon">💌</span>
+            <span class="divider-icon">👑</span>
+            <span class="divider-icon">🦸‍♂️</span>
+            <span class="line"></span>
+          </div>
+          <p class="section-subtitle">
+            Celebrating the wondrous adventure of new parenthood and the timeless, heroic bond between a father and his baby girl.
+          </p>
+        </div>
+
+        <!-- Masterpiece Fairytale Diptych Grid -->
+        <div class="parents-family-grid">
+          <!-- LEFT CARD: For the Proud Parents -->
+          <div class="family-sanctuary-card parents-letter-card glass-card">
+            <!-- Ornate Corner Filigrees -->
+            <div class="card-filigree corner-tl" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M0,0 Q20,5 30,20 Q15,15 0,0 M0,0 Q5,20 20,30 Q15,15 0,0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-tr" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M40,0 Q20,5 10,20 Q25,15 40,0 M40,0 Q35,20 20,30 Q25,15 40,0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-bl" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M0,40 Q20,35 30,20 Q15,25 0,40 M0,40 Q5,20 20,10 Q15,25 0,40" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-br" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M40,40 Q20,35 10,20 Q25,25 40,40 M40,40 Q35,20 20,10 Q25,25 40,40" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+
+            <!-- Regal Crown Header Medallion -->
+            <div class="card-regal-badge-wrapper">
+              <div class="card-regal-badge badge-parents">
+                <span class="badge-icon">💌</span>
+                <span class="badge-title">To Mommy &amp; Daddy</span>
+                <span class="badge-sparkle">✨</span>
+              </div>
+            </div>
+
+            <div class="card-header-group">
+              <span class="card-eyebrow">THE MIRACLE OF PARENTHOOD</span>
+              <h3 class="card-maintitle">Proud Parents</h3>
+            </div>
+
+            <!-- Illuminated Frosted Letter Envelope -->
+            <div class="family-quote-envelope quote-envelope-parents">
+              <span class="gilded-quote-mark quote-start" aria-hidden="true">“</span>
+              <p class="family-envelope-text">
+                Congratulations to the proud parents! Your world just got a little sweeter, your hearts a whole lot fuller, and your lives forever more beautiful. May your little princess fill every day with endless smiles, and boundless love.
+              </p>
+              <span class="gilded-quote-mark quote-end" aria-hidden="true">”</span>
+            </div>
+
+            <!-- 3 Symmetrical Milestone Blessings -->
+            <div class="family-feature-list">
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-pink">
+                  <span>🍼</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">Sweet Late-Night Cuddles</h4>
+                  <p class="feature-desc">Cherish every quiet lullaby and tender whisper in the stillness of the night.</p>
+                </div>
+              </div>
+
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-rose">
+                  <span>💖</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">A Heart Grown Tenfold</h4>
+                  <p class="feature-desc">A sacred love you never knew existed has now taken permanent root in your souls.</p>
+                </div>
+              </div>
+
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-gold">
+                  <span>🌟</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">A Lifetime of Firsts</h4>
+                  <p class="feature-desc">First giggles, first tiny steps, and infinite moments of pure, starry wonder.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Footer: Calligraphy & Interactive Blessing Button -->
+            <div class="family-card-footer footer-parents">
+              <p class="family-script-quote">
+                “To raise a daughter is to witness love walking in the world with tiny steps.”
+              </p>
+
+              <div class="parents-action-wrapper">
+                <button id="parentsBlessingBtn" class="btn btn-primary btn-glow parents-celebrate-btn" aria-label="Bless Mommy and Daddy">
+                  <span class="btn-icon">💌</span>
+                  <span class="btn-text">Bless Mommy &amp; Daddy</span>
+                  <span class="btn-sparkle">🌸✨</span>
+                </button>
+              </div>
+
+              <p class="parents-celebrate-hint">
+                <span>✨ Tap to shower new parents with love ✨</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD: Daddy's Little Princess -->
+          <div class="family-sanctuary-card father-content-card glass-card">
+            <!-- Ornate Corner Filigrees -->
+            <div class="card-filigree corner-tl filigree-purple" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M0,0 Q20,5 30,20 Q15,15 0,0 M0,0 Q5,20 20,30 Q15,15 0,0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-tr filigree-purple" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M40,0 Q20,5 10,20 Q25,15 40,0 M40,0 Q35,20 20,30 Q25,15 40,0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-bl filigree-purple" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M0,40 Q20,35 30,20 Q15,25 0,40 M0,40 Q5,20 20,10 Q15,25 0,40" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="card-filigree corner-br filigree-purple" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M40,40 Q20,35 10,20 Q25,25 40,40 M40,40 Q35,20 20,10 Q25,25 40,40" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+
+            <!-- Regal Crown Header Medallion -->
+            <div class="card-regal-badge-wrapper">
+              <div class="card-regal-badge badge-father">
+                <span class="badge-icon">🦸‍♂️</span>
+                <span class="badge-title">Daddy's Little Girl</span>
+                <span class="badge-sparkle">👑</span>
+              </div>
+            </div>
+
+            <div class="card-header-group">
+              <span class="card-eyebrow eyebrow-purple">HER HERO &amp; FOREVER PROTECTOR</span>
+              <h3 class="card-maintitle">A Father's Forever Love</h3>
+            </div>
+
+            <!-- Illuminated Frosted Letter Envelope -->
+            <div class="family-quote-envelope quote-envelope-father">
+              <span class="gilded-quote-mark quote-start" aria-hidden="true">“</span>
+              <p class="family-envelope-text">
+                Today, a boy became a father, a heart discovered a new meaning of love, and a little girl found her first superhero. No matter how big she grows, she will always be Daddy's little princess.
+              </p>
+              <span class="gilded-quote-mark quote-end" aria-hidden="true">”</span>
+            </div>
+
+            <!-- 3 Symmetrical Superhero Traits -->
+            <div class="family-feature-list">
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-shield">
+                  <span>🛡️</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">Her Guardian &amp; Shield</h4>
+                  <p class="feature-desc">Always standing ready to protect her innocence, cheer her laughter, and dry every tear.</p>
+                </div>
+              </div>
+
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-dance">
+                  <span>🩰</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">Her First Dance Partner</h4>
+                  <p class="feature-desc">From twirling on his shoes in the living room to walking hand in hand through life.</p>
+                </div>
+              </div>
+
+              <div class="family-feature-item">
+                <div class="feature-jewel-icon jewel-harbor">
+                  <span>👑</span>
+                </div>
+                <div class="feature-content">
+                  <h4 class="feature-title">Her Forever Safe Harbor</h4>
+                  <p class="feature-desc">A father's warm hug that tells her she is loved, cherished, and capable of touching the stars.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Footer: Calligraphy & Interactive Celebration Button -->
+            <div class="family-card-footer footer-father">
+              <p class="family-script-quote script-quote-father">
+                “A daughter may outgrow his lap, but she will never outgrow his heart.”
+              </p>
+
+              <div class="father-action-wrapper">
+                <button id="fatherLoveBtn" class="btn btn-primary btn-glow father-celebrate-btn" aria-label="Celebrate Daddy and Baby Girl">
+                  <span class="btn-icon">🦸‍♂️</span>
+                  <span class="btn-text">Celebrate Daddy &amp; Daughter</span>
+                  <span class="btn-sparkle">💖✨</span>
+                </button>
+              </div>
+
+              <p class="father-celebrate-hint">
+                <span>✨ Tap to shower with sparkles &amp; hearts ✨</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Dialog for Full Blessing Display -->
+  <div class="blessing-modal-backdrop" id="blessingModal" role="dialog" aria-modal="true" aria-labelledby="modalBlessingTitle" aria-hidden="true">
+    <div class="blessing-modal-dialog">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close blessing popup">✕</button>
+      <div class="modal-card-content glass-card">
+        <div class="modal-card-header">
+          <div class="modal-blessing-icon" id="modalBlessingIcon">🌸</div>
+          <span class="modal-blessing-badge" id="modalBlessingBadge">Blessing 1 of 7</span>
+          <h3 class="modal-blessing-title" id="modalBlessingTitle">Blessing 1</h3>
+        </div>
+        <div class="modal-card-body">
+          <span class="modal-quote-symbol">“</span>
+          <p class="modal-blessing-text" id="modalBlessingText">
+            May your life always be filled with happiness, laughter and endless love. May every day bring you a beautiful reason to smile.
+          </p>
+        </div>
+        <div class="modal-card-footer">
+          <span class="modal-dedication">💖 Dedicated with infinite love for our Little Princess</span>
+          <button class="btn btn-secondary modal-action-close" id="modalActionCloseBtn">Back to Blessings ✨</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal for Bigger Picture View -->
+  <div class="image-lightbox-backdrop" id="imageLightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxImageTitle" aria-hidden="true">
+    <div class="image-lightbox-dialog">
+      <button class="lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close bigger picture view">✕</button>
+      <div class="lightbox-modal-card glass-card">
+        <div class="lightbox-image-container">
+          <img src="assets/parents_caricature.jpg" alt="Full size caricature of Sounak, his wife, and their newborn baby girl" class="lightbox-full-img" id="lightboxFullImg">
+          <div class="lightbox-image-glow" aria-hidden="true"></div>
+        </div>
+        <div class="lightbox-details-panel">
+          <div class="lightbox-header-row">
+            <span class="lightbox-crown-icon">👑</span>
+            <h3 class="lightbox-title" id="lightboxImageTitle">Mommy, Daddy &amp; Their Little Princess</h3>
+            <span class="lightbox-sparkle-icon">✨</span>
+          </div>
+          <p class="lightbox-description" id="lightboxImageDesc">
+            A beautiful new beginning filled with infinite love, sweet lullabies, and endless blessings.
+          </p>
+          <div class="lightbox-btn-row">
+            <a href="assets/parents_caricature.jpg" download="Sounak_Family_Caricature.jpg" class="btn btn-secondary btn-sm" id="lightboxDownloadBtn" title="Download this picture in high quality">
+              <span>💾 Save Picture</span>
+            </a>
+            <button class="btn btn-primary btn-sm" id="lightboxActionCloseBtn">
+              <span>Back to Keepsake ✨</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crawling Baby Princess on Lower Side (Crawls left-to-right and right-to-left) -->
+  <div class="crawling-baby-track" id="crawlingBabyTrack" aria-hidden="false">
+    <!-- Speech Bubble on top of the face (never mirrored) -->
+    <div class="baby-bubble" id="babySpeechBubble">Peekaboo! 👶💖</div>
+    <div class="crawling-baby-walker" id="crawlingBabyWalker">
+      <div class="crawling-baby-character" id="crawlingBabyChar" role="button" tabindex="0" aria-label="Little princess baby crawling. Tap to hear her giggle!" title="Peekaboo! Tap me! 💕">
+        <img src="assets/crawling_baby.png" alt="Adorable baby girl crawling happily" class="crawling-baby-photo" id="crawlingBabyPhoto" loading="eager">
+        <span class="crawling-trail trail-1">✨</span>
+        <span class="crawling-trail trail-2">💖</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer (Very Small & Minimal) -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <p class="footer-text">
+        Made with love to celebrate a beautiful new beginning ❤️
+        <span class="footer-sep">•</span>
+        <a href="#welcome" class="back-to-top-link">Back to Top ↑</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Celebration Action Dock (Available Throughout the Entire Website) -->
+  <div class="floating-fab-container" id="floatingFabContainer" role="toolbar" aria-label="Celebration Controls">
+    <button id="fabConfetti" class="fab-btn fab-confetti" aria-label="Burst Confetti Cannon" title="Burst Confetti Cannon 🎊">
+      <span>🎊</span>
+    </button>
+    <button id="fabBalloons" class="fab-btn fab-balloons" aria-label="Release Celebration Balloons" title="Release Floating Balloons 🎈">
+      <span>🎈</span>
+    </button>
+    <button id="fabShowerLove" class="fab-btn fab-heart" aria-label="Shower Floating Hearts" title="Shower Floating Hearts 💖">
+      <span>💖</span>
+    </button>
+  </div>
+
+  <!-- Audio Element (Optional fallback if user provides mp3, but Web Audio API synthesizer is active by default!) -->
+  <audio id="bgAudio" loop preload="none">
+    <source src="" type="audio/mp3">
+  </audio>
+
+  <script src="script.js?v=2.2"></script>
+</body>
+</html>
