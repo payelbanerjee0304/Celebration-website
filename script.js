@@ -543,6 +543,27 @@
     });
   }
 
+  // Hero Arrival Badge (Interactive Date & Time Milestone celebration)
+  const heroArrivalBadge = document.getElementById('heroArrivalBadge');
+  if (heroArrivalBadge) {
+    const triggerArrivalCelebration = (e) => {
+      const rect = heroArrivalBadge.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      launchConfetti(centerX, centerY, 35);
+      spawnFloatingHeart(centerX, centerY);
+      playPopChimeSound(587.33); // D5
+      setTimeout(() => playPopChimeSound(880), 120); // A5
+    };
+    heroArrivalBadge.addEventListener('click', triggerArrivalCelebration);
+    heroArrivalBadge.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerArrivalCelebration(e);
+      }
+    });
+  }
+
   // =========================================================================
   // 7. Enter Celebration Button (Scroll + Confetti Cannon)
   // =========================================================================

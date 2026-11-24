@@ -608,54 +608,88 @@ body {
   margin-bottom: 20px;
 }
 
-/* Hero Arrival Announcement Badge (Birth Date & Time) */
+/* Hero Arrival Announcement Badge (Birth Date & Time - Creative Royal Capsule) */
 .hero-arrival-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 8px 22px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 24px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(244, 114, 182, 0.4);
-  box-shadow: 0 8px 24px -6px rgba(219, 39, 119, 0.2), 0 0 16px rgba(253, 224, 71, 0.25);
-  margin-bottom: 30px;
+  border: 1.5px solid rgba(244, 114, 182, 0.45);
+  box-shadow: 0 10px 28px -6px rgba(219, 39, 119, 0.22), 0 0 20px rgba(253, 224, 71, 0.25);
+  margin-bottom: 28px;
   animation: gentlePulse 3.5s infinite ease-in-out;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.hero-arrival-badge:hover,
+.hero-arrival-badge:focus-visible {
+  transform: translateY(-2.5px) scale(1.02);
+  background: rgba(255, 255, 255, 0.98);
+  border-color: #ec4899;
+  box-shadow: 0 14px 34px -6px rgba(219, 39, 119, 0.32), 0 0 24px rgba(253, 224, 71, 0.4);
+  outline: none;
+}
+
+.hero-arrival-badge:active {
+  transform: translateY(0) scale(0.99);
 }
 
 .arrival-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.96rem;
+  gap: 10px;
   color: #701a75;
 }
 
 .arrival-icon {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 5px rgba(244, 114, 182, 0.35));
+  transition: transform 0.25s ease;
 }
 
-.arrival-label {
-  font-size: 0.82rem;
-  font-weight: 600;
+.hero-arrival-badge:hover .arrival-icon {
+  transform: scale(1.15) rotate(6deg);
+}
+
+.arrival-text-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.arrival-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #a21caf;
+  letter-spacing: 1.2px;
+  color: #db2777;
 }
 
 .arrival-value {
   font-family: var(--font-body);
+  font-size: 0.98rem;
   font-weight: 700;
   color: #86198f;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
 }
 
 .arrival-divider {
   color: #f59e0b;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  animation: sparkleTwinkle 2.4s infinite ease-in-out;
 }
 
 /* Quote Card in Hero */
@@ -3694,13 +3728,22 @@ body {
   }
 
   .hero-arrival-badge {
-    padding: 6px 16px;
-    gap: 8px;
+    padding: 8px 18px;
+    gap: 10px;
     margin-bottom: 22px;
+    max-width: 92%;
   }
 
   .arrival-pill {
-    font-size: 0.86rem;
+    gap: 8px;
+  }
+
+  .arrival-tag {
+    font-size: 0.65rem;
+  }
+
+  .arrival-value {
+    font-size: 0.88rem;
   }
 
   .quote-text {

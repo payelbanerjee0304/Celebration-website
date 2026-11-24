@@ -3,7 +3,7 @@
 A magical, interactive baby girl celebration and keepsake website created with love to welcome the little angel into the world.
 
 ## ✨ Features
-- **Magical Hero Screen:** Floating celestial decorations, golden crown, birth announcement details (Date: 20/11/2026, Time: 12:26 AM), and heartfelt quotes.
+- **Magical Hero Screen:** Floating celestial decorations, golden crown, birth announcement details (Date: 21st November, 2026, Time: 12:26 AM), and heartfelt quotes.
 - **Interactive Keepsake & Memory Lane:** Personalized parent caricature and heartfelt family messages.
 - **8 Blessings Magic Box:** An interactive 3D gift box ceremony revealing customized wishes and blessings from family and friends.
 - **Crawling Baby Princess:** Realistic animated crawling baby girl across the lower screen with sound effects, playful giggles, and floating confetti on click.
