@@ -608,7 +608,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Hero Arrival Announcement Badge (Birth Date & Time - Creative Royal Capsule) */
+/* Hero Arrival Announcement Badge (Birth Date & Time) */
 .hero-arrival-badge {
   display: inline-flex;
   align-items: center;
@@ -618,7 +618,7 @@ body {
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 10px 24px;
+  padding: 10px 26px;
   border-radius: var(--radius-pill);
   border: 1.5px solid rgba(244, 114, 182, 0.45);
   box-shadow: 0 10px 28px -6px rgba(219, 39, 119, 0.22), 0 0 20px rgba(253, 224, 71, 0.25);
@@ -631,7 +631,7 @@ body {
 
 .hero-arrival-badge:hover,
 .hero-arrival-badge:focus-visible {
-  transform: translateY(-2.5px) scale(1.02);
+  transform: translateY(-2px) scale(1.02);
   background: rgba(255, 255, 255, 0.98);
   border-color: #ec4899;
   box-shadow: 0 14px 34px -6px rgba(219, 39, 119, 0.32), 0 0 24px rgba(253, 224, 71, 0.4);
@@ -645,36 +645,21 @@ body {
 .arrival-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: #701a75;
 }
 
 .arrival-icon {
-  font-size: 1.3rem;
+  font-size: 1.18rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 2px 5px rgba(244, 114, 182, 0.35));
+  filter: drop-shadow(0 2px 4px rgba(244, 114, 182, 0.3));
   transition: transform 0.25s ease;
 }
 
 .hero-arrival-badge:hover .arrival-icon {
-  transform: scale(1.15) rotate(6deg);
-}
-
-.arrival-text-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  line-height: 1.25;
-}
-
-.arrival-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: #db2777;
+  transform: scale(1.12);
 }
 
 .arrival-value {
@@ -687,9 +672,8 @@ body {
 
 .arrival-divider {
   color: #f59e0b;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   opacity: 0.85;
-  animation: sparkleTwinkle 2.4s infinite ease-in-out;
 }
 
 /* Quote Card in Hero */
@@ -3728,18 +3712,14 @@ body {
   }
 
   .hero-arrival-badge {
-    padding: 8px 18px;
+    padding: 7px 18px;
     gap: 10px;
     margin-bottom: 22px;
     max-width: 92%;
   }
 
   .arrival-pill {
-    gap: 8px;
-  }
-
-  .arrival-tag {
-    font-size: 0.65rem;
+    gap: 6px;
   }
 
   .arrival-value {
