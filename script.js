@@ -1056,7 +1056,7 @@
 
     if (lightboxFullImg) {
       lightboxFullImg.src = imageSrc || 'assets/parents_caricature.jpg';
-      lightboxFullImg.alt = imageAlt || 'Mommy, Daddy & Their Little Princess';
+      lightboxFullImg.alt = imageAlt || 'Mommy, Daddy & Princess Srinika';
     }
     if (lightboxImageTitle && titleText) {
       lightboxImageTitle.textContent = titleText;
@@ -1091,8 +1091,8 @@
       e.preventDefault();
       openImageLightbox(
         'assets/parents_caricature.jpg',
-        'Heartwarming caricature illustration of Sounak and his wife holding their baby girl',
-        'Mommy, Daddy & Their Little Princess',
+        'Heartwarming caricature illustration of Sounak and his wife holding their baby girl Srinika',
+        'Mommy, Daddy & Princess Srinika',
         'A beautiful new beginning filled with infinite love, sweet lullabies, and endless blessings.'
       );
     });
@@ -1111,7 +1111,7 @@
       openImageLightbox(
         parentsCaricatureImg.src,
         parentsCaricatureImg.alt,
-        'Mommy, Daddy & Their Little Princess',
+        'Mommy, Daddy & Princess Srinika',
         'A beautiful new beginning filled with infinite love, sweet lullabies, and endless blessings.'
       );
     });
@@ -1149,9 +1149,10 @@
     const babyGiggles = [
       'Giggle! 👶💖',
       'Peekaboo! ✨',
+      'I am Srinika! 👑',
       'Hehe! 🌸',
       'Coo coo! 💕',
-      'Little Princess! 👑',
+      'Princess Srinika! 👑',
       'Sweet Baby! 🎀'
     ];
     let bubbleTimeout;
